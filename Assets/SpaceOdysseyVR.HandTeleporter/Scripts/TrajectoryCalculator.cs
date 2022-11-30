@@ -14,26 +14,23 @@ namespace SpaceOdysseyVR.HandTeleporter
     {
         public event Action<Vector3>? SphereReachEndPoint;
 
-        private Transform _transform;
         private LineRenderer _lineRenderer;
 
         [SerializeField]
         private GameObject _spherePrefab;
 
         private TeleportSphere? _teleportSphere;
+        private Transform _transform;
 
         #region Coroutines
 
-        private Coroutine? _updateTrajectoryCoroutine;
-        private Coroutine? _moveSphereToLastPointCoroutine;
         private bool _isTeleporting;
+        private Coroutine? _moveSphereToLastPointCoroutine;
+        private Coroutine? _updateTrajectoryCoroutine;
 
         #endregion Coroutines
 
         #region Graphical parameters
-
-        [SerializeField]
-        private Material _mainMaterial;
 
         [SerializeField]
         private Color _color = Color.blue;
@@ -41,6 +38,9 @@ namespace SpaceOdysseyVR.HandTeleporter
         [SerializeField]
         [Range(0.05f, 1f)]
         private float _lineWidth = 0.05f;
+
+        [SerializeField]
+        private Material _mainMaterial;
 
         #endregion Graphical parameters
 
@@ -51,54 +51,36 @@ namespace SpaceOdysseyVR.HandTeleporter
         private float _forwardSpeed = 0.1f;
 
         [SerializeField]
+        [Range(0f, 1f)]
+        private float _frictionСoefficient = 0;
+
+        [SerializeField]
         [Range(0f, 10f)]
         private float _gravityAcceleration = 0.0125f;
 
         [SerializeField]
-        [Range(1, 1000)]
-        private int _stepsCount = 300;
-
-        [SerializeField]
-        [Range(0f, 1f)]
-        private float _frictionСoefficient = 0;
+        [Range(0.01f, 2f)]
+        private float _segmentTime = 1;
 
         [SerializeField]
         [Range(0.1f, 10f)]
         private float _sphereRadius = 2;
 
         [SerializeField]
-        [Range(0.01f, 2f)]
-        private float _segmentTime = 1;
+        [Range(1, 1000)]
+        private int _stepsCount = 300;
 
         #endregion Trajectory parameters
 
         #region Trajectory Data
 
-        private NativeArray<Vector3> _trajectory;
         private int _last;
+        private NativeArray<Vector3> _trajectory;
         private float _trajectoryLength;
 
         #endregion Trajectory Data
 
         public Vector3? LastTrajectoryPoint => _trajectory != null ? _trajectory[_last] : null;
-
-        private void Start ()
-        {
-            _transform = GetComponent<Transform>();
-
-            _mainMaterial.color = _color;
-
-            var sphere = Instantiate(_spherePrefab);
-            _teleportSphere = sphere.GetComponent<TeleportSphere>();
-
-            _lineRenderer = GetComponent<LineRenderer>();
-            _lineRenderer.startWidth = _lineWidth;
-            _lineRenderer.endWidth = _lineWidth;
-            _lineRenderer.material = _mainMaterial;
-
-            _trajectory = new(_stepsCount + 1, Allocator.Persistent);
-            _trajectoryLength = 0;
-        }
 
         private void CalcTrajectory ()
         {
@@ -120,69 +102,6 @@ namespace SpaceOdysseyVR.HandTeleporter
                     break;
                 }
             }
-        }
-
-        private void RedrawTrajectory ()
-        {
-            _lineRenderer.positionCount = _last + 1;
-            _lineRenderer.SetPositions(_trajectory);
-        }
-
-        public void EndTeleporting ()
-        {
-            _isTeleporting = false;
-            _lineRenderer.enabled = false;
-
-            if (_updateTrajectoryCoroutine != null)
-                StopCoroutine(_updateTrajectoryCoroutine);
-            if (_moveSphereToLastPointCoroutine != null)
-                StopCoroutine(_moveSphereToLastPointCoroutine);
-
-            _moveSphereToLastPointCoroutine = StartCoroutine(MoveSphereToLastPoint());
-        }
-
-        public void StratTeleporting ()
-        {
-            if (Physics.CheckSphere(_transform.position, _sphereRadius))
-                return;
-
-            _lineRenderer.enabled = true;
-            _isTeleporting = true;
-
-            if (_teleportSphere != null)
-            {
-                _teleportSphere.State = TeleportSphereState.Visible;
-                _teleportSphere.Size = _sphereRadius * 2;
-                _teleportSphere.Material = _mainMaterial;
-            }
-
-            if (_updateTrajectoryCoroutine != null)
-                StopCoroutine(_updateTrajectoryCoroutine);
-            if (_moveSphereToLastPointCoroutine != null)
-                StopCoroutine(_moveSphereToLastPointCoroutine);
-
-            _updateTrajectoryCoroutine = StartCoroutine(UpdateTrajectory());
-        }
-
-        private IEnumerator UpdateTrajectory ()
-        {
-            while (_isTeleporting)
-            {
-                CalcTrajectory();
-                RedrawTrajectory();
-                if (LastTrajectoryPoint.HasValue && _teleportSphere != null)
-                    _teleportSphere.Position = LastTrajectoryPoint.Value;
-                yield return null;
-            }
-        }
-
-        private void OnDestroy ()
-        {
-            if (_teleportSphere != null)
-                Destroy(_teleportSphere.gameObject);
-
-            if (_trajectory.IsCreated)
-                _trajectory.Dispose();
         }
 
         private IEnumerator MoveSphereToLastPoint ()
@@ -220,6 +139,95 @@ namespace SpaceOdysseyVR.HandTeleporter
             }
 
             SphereReachEndPoint?.Invoke(LastTrajectoryPoint.Value);
+        }
+
+        private void OnDestroy ()
+        {
+            if (_teleportSphere != null)
+                Destroy(_teleportSphere.gameObject);
+
+            if (_trajectory.IsCreated)
+                _trajectory.Dispose();
+        }
+
+        private void RedrawTrajectory ()
+        {
+            _lineRenderer.positionCount = _last + 1;
+            _lineRenderer.SetPositions(_trajectory);
+        }
+
+        private void Start ()
+        {
+            _transform = GetComponent<Transform>();
+
+            _mainMaterial.color = _color;
+
+            var sphere = Instantiate(_spherePrefab);
+            _teleportSphere = sphere.GetComponent<TeleportSphere>();
+
+            _lineRenderer = GetComponent<LineRenderer>();
+            _lineRenderer.startWidth = _lineWidth;
+            _lineRenderer.endWidth = _lineWidth;
+            _lineRenderer.material = _mainMaterial;
+
+            _trajectory = new(_stepsCount + 1, Allocator.Persistent);
+            _trajectoryLength = 0;
+        }
+
+        private void StopCalculatorCoroutines ()
+        {
+            if (_updateTrajectoryCoroutine != null)
+            {
+                StopCoroutine(_updateTrajectoryCoroutine);
+                _updateTrajectoryCoroutine = null;
+            }
+            if (_moveSphereToLastPointCoroutine != null)
+            {
+                StopCoroutine(_moveSphereToLastPointCoroutine);
+                _moveSphereToLastPointCoroutine = null;
+            }
+        }
+
+        private IEnumerator UpdateTrajectory ()
+        {
+            while (_isTeleporting)
+            {
+                CalcTrajectory();
+                RedrawTrajectory();
+                if (LastTrajectoryPoint.HasValue && _teleportSphere != null)
+                    _teleportSphere.Position = LastTrajectoryPoint.Value;
+                yield return null;
+            }
+        }
+
+        public void EndTeleporting ()
+        {
+            _isTeleporting = false;
+            _lineRenderer.enabled = false;
+
+            StopCalculatorCoroutines();
+
+            _moveSphereToLastPointCoroutine = StartCoroutine(MoveSphereToLastPoint());
+        }
+
+        public void StratTeleporting ()
+        {
+            if (Physics.CheckSphere(_transform.position, _sphereRadius))
+                return;
+
+            _lineRenderer.enabled = true;
+            _isTeleporting = true;
+
+            if (_teleportSphere != null)
+            {
+                _teleportSphere.State = TeleportSphereState.Visible;
+                _teleportSphere.Size = _sphereRadius * 2;
+                _teleportSphere.Material = _mainMaterial;
+            }
+
+            StopCalculatorCoroutines();
+
+            _updateTrajectoryCoroutine = StartCoroutine(UpdateTrajectory());
         }
     }
 }
