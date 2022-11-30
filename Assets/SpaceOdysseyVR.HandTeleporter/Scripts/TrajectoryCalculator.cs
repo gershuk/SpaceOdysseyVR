@@ -12,10 +12,6 @@ namespace SpaceOdysseyVR.HandTeleporter
     [RequireComponent(typeof(LineRenderer))]
     public sealed class TrajectoryCalculator : MonoBehaviour
     {
-        private Coroutine? _updateTrajectoryCoroutine;
-        private Coroutine? _moveSphereToLastPointCoroutine;
-        private bool _isTeleporting;
-
         public event Action<Vector3>? SphereReachEndPoint;
 
         private Transform _transform;
@@ -26,11 +22,29 @@ namespace SpaceOdysseyVR.HandTeleporter
 
         private TeleportSphere? _teleportSphere;
 
+        #region Coroutines
+
+        private Coroutine? _updateTrajectoryCoroutine;
+        private Coroutine? _moveSphereToLastPointCoroutine;
+        private bool _isTeleporting;
+
+        #endregion Coroutines
+
+        #region Graphical parameters
+
         [SerializeField]
         private Material _mainMaterial;
 
         [SerializeField]
         private Color _color = Color.blue;
+
+        [SerializeField]
+        [Range(0.05f, 1f)]
+        private float _lineWidth = 0.05f;
+
+        #endregion Graphical parameters
+
+        #region Trajectory parameters
 
         [SerializeField]
         [Range(0f, 10f)]
@@ -56,13 +70,15 @@ namespace SpaceOdysseyVR.HandTeleporter
         [Range(0.01f, 2f)]
         private float _segmentTime = 1;
 
-        [SerializeField]
-        [Range(0.05f, 1f)]
-        private float _lineWidth = 0.05f;
+        #endregion Trajectory parameters
+
+        #region Trajectory Data
 
         private NativeArray<Vector3> _trajectory;
         private int _last;
-        private float _trajectroryLength;
+        private float _trajectoryLength;
+
+        #endregion Trajectory Data
 
         public Vector3? LastTrajectoryPoint => _trajectory != null ? _trajectory[_last] : null;
 
@@ -81,12 +97,12 @@ namespace SpaceOdysseyVR.HandTeleporter
             _lineRenderer.material = _mainMaterial;
 
             _trajectory = new(_stepsCount + 1, Allocator.Persistent);
-            _trajectroryLength = 0;
+            _trajectoryLength = 0;
         }
 
         private void CalcTrajectory ()
         {
-            _trajectroryLength = 0;
+            _trajectoryLength = 0;
             _trajectory[0] = transform.position;
             _last = 0;
 
@@ -97,7 +113,7 @@ namespace SpaceOdysseyVR.HandTeleporter
                                + (i + 1) * _gravityAcceleration * Vector3.down;
                 _trajectory[++_last] = newPoint;
 
-                _trajectroryLength += Vector3.Distance(_trajectory[_last], _trajectory[_last - 1]);
+                _trajectoryLength += Vector3.Distance(_trajectory[_last], _trajectory[_last - 1]);
 
                 if (Physics.CheckSphere(newPoint, _sphereRadius))
                 {
@@ -127,6 +143,9 @@ namespace SpaceOdysseyVR.HandTeleporter
 
         public void StratTeleporting ()
         {
+            if (Physics.CheckSphere(_transform.position, _sphereRadius))
+                return;
+
             _lineRenderer.enabled = true;
             _isTeleporting = true;
 
