@@ -1,0 +1,16 @@
+{
+    "name": "SpaceOdysseyVR.Asteroids",
+    "rootNamespace": "SpaceOdysseyVR.Asteroids",
+    "references": [
+        "GUID:44d590ac7517754459fccc191c11c8e3"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
