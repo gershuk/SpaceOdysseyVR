@@ -1,0 +1,14 @@
+{
+    "name": "SpaceOdysseyVR.Player",
+    "rootNamespace": "SpaceOdysseyVR.Player",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
