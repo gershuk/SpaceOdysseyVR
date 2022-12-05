@@ -123,7 +123,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &1436056184
+--- !u!1001 &979238654
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -179,11 +179,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneController
       objectReference: {fileID: 0}
-    - target: {fileID: 5963487061202408547, guid: dc3b9f4c285f6174da82f9ed1b386bc2, type: 3}
+    - target: {fileID: 5143718308982741669, guid: dc3b9f4c285f6174da82f9ed1b386bc2, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7787180966840819382, guid: dc3b9f4c285f6174da82f9ed1b386bc2, type: 3}
+    - target: {fileID: 8768852323200372848, guid: dc3b9f4c285f6174da82f9ed1b386bc2, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
