@@ -9,11 +9,12 @@ namespace SpaceOdysseyVR.HandTeleporter
     [RequireComponent(typeof(TrajectoryCalculator))]
     public sealed class HandTeleport : MonoBehaviour
     {
+        private HandTeleportActionMap _actionMap;
+
         [SerializeField]
         private CharacterController _characterController;
 
         private TrajectoryCalculator _trajectoryCalculator;
-        private HandTeleportActionMap _actionMap;
 
         private void Awake ()
         {
@@ -22,17 +23,19 @@ namespace SpaceOdysseyVR.HandTeleporter
             _actionMap.HandTeleporter.Teleport.canceled += EndTeleporting;
         }
 
-        private void OnSphereReachEndPoint (Vector3 position)
+        private void EndTeleporting (CallbackContext context) => _trajectoryCalculator.EndTeleporting();
+
+        private void OnDestroy ()
         {
-            TeleportateCharacter(position);
+            _actionMap.Dispose();
+            _trajectoryCalculator.SphereReachEndPoint -= OnSphereReachEndPoint;
         }
 
-        private void TeleportateCharacter (Vector3 position)
-        {
-            _characterController.enabled = false;
-            _characterController.transform.position = position;
-            _characterController.enabled = true;
-        }
+        private void OnDisable () => _actionMap.Disable();
+
+        private void OnEnable () => _actionMap.Enable();
+
+        private void OnSphereReachEndPoint (Vector3 position) => TeleportateCharacter(position);
 
         private void Start ()
         {
@@ -41,24 +44,13 @@ namespace SpaceOdysseyVR.HandTeleporter
             _actionMap.Enable();
         }
 
-        private void OnEnable ()
-        {
-            _actionMap.Enable();
-        }
-
-        private void OnDisable ()
-        {
-            _actionMap.Disable();
-        }
-
         private void StartTeleporting (CallbackContext context) => _trajectoryCalculator.StratTeleporting();
 
-        private void EndTeleporting (CallbackContext context) => _trajectoryCalculator.EndTeleporting();
-
-        private void OnDestroy ()
+        private void TeleportateCharacter (Vector3 position)
         {
-            _actionMap.Dispose();
-            _trajectoryCalculator.SphereReachEndPoint -= OnSphereReachEndPoint;
+            _characterController.enabled = false;
+            _characterController.transform.position = position;
+            _characterController.enabled = true;
         }
     }
 }

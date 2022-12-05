@@ -75,6 +75,12 @@ namespace SpaceOdysseyVR.Asteroids
             Destroy(gameObject);
         }
 
+        private void OnTriggerExit (Collider other)
+        {
+            if (other.GetComponent<AsteroidsSpawner>())
+                _healthComponent.Health = 0;
+        }
+
         private void Start ()
         {
             _explosionPrefab = _explosionPrefab == null ? Resources.Load<GameObject>(@"Prefabs/Explosion") : _explosionPrefab;
@@ -92,12 +98,6 @@ namespace SpaceOdysseyVR.Asteroids
 
             _healthComponent = GetComponent<HealthComponent>();
             _healthComponent.OnDeath += OnDeath;
-        }
-
-        private void OnTriggerExit (Collider other)
-        {
-            if (other.GetComponent<AsteroidsSpawner>())
-                _healthComponent.Health = 0;
         }
     }
 }

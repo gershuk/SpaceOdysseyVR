@@ -18,20 +18,11 @@ namespace SpaceOdysseyVR.HandTeleporter
     [RequireComponent(typeof(ParticleSystem))]
     public sealed class TeleportSphere : MonoBehaviour
     {
-        private TeleportSphereState _state;
-        private Transform _transform;
         private MeshRenderer _meshRenderer;
         private ParticleSystem _particleSystem;
         private ParticleSystemRenderer _particleSystemRenderer;
-
-        public float Size
-        {
-            get => _transform.localScale.x == _transform.localScale.y
-                && _transform.localScale.y == _transform.localScale.z
-                ? _transform.localScale.x
-                : throw new Exception("x!=y!=!z");
-            set => _transform.localScale = new(value, value, value);
-        }
+        private TeleportSphereState _state;
+        private Transform _transform;
 
         public Material Material
         {
@@ -47,6 +38,15 @@ namespace SpaceOdysseyVR.HandTeleporter
         {
             get => _transform.position;
             set => _transform.position = value;
+        }
+
+        public float Size
+        {
+            get => _transform.localScale.x == _transform.localScale.y
+                && _transform.localScale.y == _transform.localScale.z
+                ? _transform.localScale.x
+                : throw new Exception("x!=y!=!z");
+            set => _transform.localScale = new(value, value, value);
         }
 
         public TeleportSphereState State
@@ -67,20 +67,18 @@ namespace SpaceOdysseyVR.HandTeleporter
             }
         }
 
-        private void Start ()
-        {
-            _transform = transform;
-            _meshRenderer = GetComponent<MeshRenderer>();
-            _particleSystem = GetComponent<ParticleSystem>();
-            _particleSystemRenderer = GetComponent<ParticleSystemRenderer>();
-            State = TeleportSphereState.Invisible;
-        }
-
         private TeleportSphere MakeInvisible ()
         {
             _meshRenderer.enabled = false;
             if (_particleSystem.isEmitting)
                 _particleSystem.Stop();
+            return this;
+        }
+
+        private TeleportSphere MakeMoving ()
+        {
+            _meshRenderer.enabled = true;
+            _particleSystem.Play();
             return this;
         }
 
@@ -92,11 +90,13 @@ namespace SpaceOdysseyVR.HandTeleporter
             return this;
         }
 
-        private TeleportSphere MakeMoving ()
+        private void Start ()
         {
-            _meshRenderer.enabled = true;
-            _particleSystem.Play();
-            return this;
+            _transform = transform;
+            _meshRenderer = GetComponent<MeshRenderer>();
+            _particleSystem = GetComponent<ParticleSystem>();
+            _particleSystemRenderer = GetComponent<ParticleSystemRenderer>();
+            State = TeleportSphereState.Invisible;
         }
     }
 }

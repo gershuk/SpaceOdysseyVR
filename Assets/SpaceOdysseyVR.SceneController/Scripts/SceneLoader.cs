@@ -35,15 +35,9 @@ namespace SpaceOdysseyVR.SceneController
             OnSceneLoaded?.Invoke();
         }
 
-        private void OnDisable ()
-        {
-            _levelLoadingUI.gameObject.SetActive(false);
-        }
+        private void OnDisable () => _levelLoadingUI.gameObject.SetActive(false);
 
-        private void OnEnable ()
-        {
-            _levelLoadingUI.gameObject.SetActive(true);
-        }
+        private void OnEnable () => _levelLoadingUI.gameObject.SetActive(true);
 
         public void StartLoadingScene (string sceneName) =>
                             _sceneLoadingCoroutine = _sceneLoadingCoroutine == null

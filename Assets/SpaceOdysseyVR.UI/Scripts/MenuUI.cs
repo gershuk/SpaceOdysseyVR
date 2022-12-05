@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SpaceOdysseyVR.UI
 {
-    public class MenuUI : MonoBehaviour
+    public sealed class MenuUI : MonoBehaviour
     {
         // Start is called before the first frame update
         private void Start ()

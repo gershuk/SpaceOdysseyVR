@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace SpaceOdysseyVR.UI
 {
-    public class LevelLoadingUI : MonoBehaviour
+    public sealed class LevelLoadingUI : MonoBehaviour
     {
         [SerializeField]
         private Slider _slider;
@@ -21,7 +21,7 @@ namespace SpaceOdysseyVR.UI
             set
             {
                 _slider.value = value;
-                _textMesh.text = $"{(value * 100):N2}%";
+                _textMesh.text = $"{value * 100:N2}%";
             }
         }
 

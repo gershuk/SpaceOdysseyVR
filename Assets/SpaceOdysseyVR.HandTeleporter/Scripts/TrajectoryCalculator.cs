@@ -12,15 +12,16 @@ namespace SpaceOdysseyVR.HandTeleporter
     [RequireComponent(typeof(LineRenderer))]
     public sealed class TrajectoryCalculator : MonoBehaviour
     {
-        public event Action<Vector3>? SphereReachEndPoint;
-
         private LineRenderer _lineRenderer;
 
         [SerializeField]
         private GameObject _spherePrefab;
 
         private TeleportSphere? _teleportSphere;
+
         private Transform _transform;
+
+        public event Action<Vector3>? SphereReachEndPoint;
 
         #region Coroutines
 
@@ -80,7 +81,8 @@ namespace SpaceOdysseyVR.HandTeleporter
 
         #endregion Trajectory Data
 
-        public Vector3? LastTrajectoryPoint => _trajectory != null ? _trajectory[_last] : null;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0031:Используйте распространение значения NULL", Justification = "<Ожидание>")]
+        public Vector3? LastTrajectoryPoint => _trajectory == null ? null : _trajectory[_last];
 
         private void CalcTrajectory ()
         {
@@ -91,8 +93,8 @@ namespace SpaceOdysseyVR.HandTeleporter
             for (var i = 0; i < _stepsCount; ++i)
             {
                 var newPoint = _trajectory[_last]
-                               + (1 - _frictionСoefficient) * _forwardSpeed * _transform.forward
-                               + (i + 1) * _gravityAcceleration * Vector3.down;
+                               + ((1 - _frictionСoefficient) * _forwardSpeed * _transform.forward)
+                               + ((i + 1) * _gravityAcceleration * Vector3.down);
                 _trajectory[++_last] = newPoint;
 
                 _trajectoryLength += Vector3.Distance(_trajectory[_last], _trajectory[_last - 1]);

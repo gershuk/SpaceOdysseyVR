@@ -11,28 +11,23 @@ namespace SpaceOdysseyVR.Asteroids
 {
     public readonly struct SpawnParameters
     {
-        private readonly uint _allDirectAsteroidsCount;
-        private readonly uint _partitionDirectAsteroidsCount;
-        private readonly float _spawnInterval;
-        private readonly float? _timeout;
+        public uint AllDirectAsteroidsCount { get; }
 
-        public uint AllDirectAsteroidsCount => _allDirectAsteroidsCount;
+        public uint PartitionDirectAsteroidsCount { get; }
 
-        public uint PartitionDirectAsteroidsCount => _partitionDirectAsteroidsCount;
+        public float SpawnInterval { get; }
 
-        public float SpawnInterval => _spawnInterval;
-
-        public float? Timeout => _timeout;
+        public float? Timeout { get; }
 
         public SpawnParameters (float spawnInterval,
                                 uint allDirectAsteroidsCount,
                                 uint partitionDirectAsteroidsCount,
                                 float? timeout = null)
         {
-            _spawnInterval = spawnInterval;
-            _allDirectAsteroidsCount = allDirectAsteroidsCount;
-            _partitionDirectAsteroidsCount = partitionDirectAsteroidsCount;
-            _timeout = timeout;
+            SpawnInterval = spawnInterval;
+            AllDirectAsteroidsCount = allDirectAsteroidsCount;
+            PartitionDirectAsteroidsCount = partitionDirectAsteroidsCount;
+            Timeout = timeout;
         }
     }
 
@@ -62,30 +57,30 @@ namespace SpaceOdysseyVR.Asteroids
 
         private Vector3 BottomLeftSpawnPoint =>
             StartTransform.position
-            + (StartTransform.right * _boxSize.x + StartTransform.up * _boxSize.y) / -2;
+            + (((StartTransform.right * _boxSize.x) + (StartTransform.up * _boxSize.y)) / -2);
 
         private Vector3 BottomLeftTerminatePoint =>
             StartTransform.position
-            + StartTransform.forward * _boxSize.z
-            + (StartTransform.right * _boxSize.x + StartTransform.up * _boxSize.y) / -2;
+            + (StartTransform.forward * _boxSize.z)
+            + (((StartTransform.right * _boxSize.x) + (StartTransform.up * _boxSize.y)) / -2);
 
         private Vector3 SpawnStartCenter =>
                     (_spawnPoint == null ? _transform.position : _spawnPoint.position)
-            + Vector3.forward * _boxSize.z / 2;
+            + (Vector3.forward * _boxSize.z / 2);
 
         private Transform StartTransform => _spawnPoint == null ? _transform : _spawnPoint;
 
         private Vector3 TopRightSpawnPoint =>
             StartTransform.position
-            + (StartTransform.right * _boxSize.x + StartTransform.up * _boxSize.y) / 2;
+            + (((StartTransform.right * _boxSize.x) + (StartTransform.up * _boxSize.y)) / 2);
 
         private Vector3 TopRightTerminatePoint =>
             StartTransform.position
-            + StartTransform.forward * _boxSize.z
-            + (StartTransform.right * _boxSize.x + StartTransform.up * _boxSize.y) / 2;
+            + (StartTransform.forward * _boxSize.z)
+            + (((StartTransform.right * _boxSize.x) + (StartTransform.up * _boxSize.y)) / 2);
 
         private Vector3 GetRandomEndPoint () =>
-            GetRandomSpawnPoint() + StartTransform.forward * _boxSize.z;
+            GetRandomSpawnPoint() + (StartTransform.forward * _boxSize.z);
 
         private Vector3 GetRandomSpawnPoint ()
         {
