@@ -19,6 +19,7 @@ namespace SpaceOdysseyVR.Asteroids
         [Range(ExplosionController.MinStrenght, ExplosionController.MinStrenght)]
         private float _strength = 1;
 
+        private Transform _transform;
         #region Trajectory parameters
 
         [SerializeField]
@@ -60,6 +61,18 @@ namespace SpaceOdysseyVR.Asteroids
 
         #endregion Damage parameters
 
+        public Vector3 Position
+        {
+            get => Transform.position;
+            set => Transform.position = value;
+        }
+
+        public Transform Transform
+        {
+            get => _transform;
+            private set => _transform = value;
+        }
+
         private void OnCollisionEnter (Collision collision)
         {
             var healthComponent = collision.transform.GetComponent<HealthComponent>();
@@ -83,6 +96,8 @@ namespace SpaceOdysseyVR.Asteroids
 
         private void Start ()
         {
+            Transform = transform;
+
             _explosionPrefab = _explosionPrefab == null ? Resources.Load<GameObject>(@"Prefabs/Explosion") : _explosionPrefab;
 
             if (_minTorque > _maxTorque)

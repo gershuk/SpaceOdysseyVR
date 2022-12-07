@@ -1,5 +1,6 @@
 #nullable enable
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -53,6 +54,11 @@ namespace SpaceOdysseyVR.Asteroids
         [SerializeField]
         private Transform _transform;
 
+        public event Action<Asteroid>? OnAsteroidDestroyed;
+
+        public event Action<Asteroid>? OnAsteroidSpawned;
+
+        public IReadOnlyCollection<Asteroid> SpawnedAsteroids => _spawnedAsteroids;
         #region Spawn support positions
 
         private Vector3 BottomLeftSpawnPoint =>
@@ -130,10 +136,15 @@ namespace SpaceOdysseyVR.Asteroids
                 {
                     var prefab = _asteroidPrefabs[UnityEngine.Random.Range(0, _asteroidPrefabs.Length - 1)];
                     var asteroid = Instantiate(prefab).GetComponent<Asteroid>();
-                    asteroid.GetComponent<HealthComponent>().OnDeath += () => _spawnedAsteroids.Remove(asteroid);
+                    asteroid.GetComponent<HealthComponent>().OnDeath += () =>
+                                                                        {
+                                                                            _spawnedAsteroids.Remove(asteroid);
+                                                                            OnAsteroidDestroyed?.Invoke(asteroid);
+                                                                        };
                     asteroid.StartPosition = GetRandomSpawnPoint();
                     asteroid.EndPosition = GetRandomEndPoint();
                     _spawnedAsteroids.Add(asteroid);
+                    OnAsteroidSpawned?.Invoke(asteroid);
                 }
 
                 remainsDirectAsteroidsCount -= parameters.PartitionDirectAsteroidsCount;
