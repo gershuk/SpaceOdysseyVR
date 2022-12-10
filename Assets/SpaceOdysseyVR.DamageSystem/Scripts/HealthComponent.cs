@@ -8,10 +8,6 @@ namespace SpaceOdysseyVR.DamageSystem
 {
     public sealed class HealthComponent : MonoBehaviour
     {
-        public event Action OnDeath;
-
-        public event Action<uint> OnHealthChange;
-
         [SerializeField]
         [Range(0, 1000)]
         private uint _health = 100;
@@ -19,6 +15,10 @@ namespace SpaceOdysseyVR.DamageSystem
         [SerializeField]
         [Range(0, 1000)]
         private uint _maxHealth = 100;
+
+        public event Action? OnDeath;
+
+        public event Action<uint>? OnHealthChange;
 
         public uint Health
         {

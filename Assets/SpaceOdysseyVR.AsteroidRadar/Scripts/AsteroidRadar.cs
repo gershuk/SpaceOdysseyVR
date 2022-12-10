@@ -46,6 +46,15 @@ namespace SpaceOdysseyVR.AsteroidRadar
             Destroy(pointController.gameObject);
         }
 
+        private void OnDestroy ()
+        {
+            foreach (var spawner in _asteroidsSpawners)
+            {
+                spawner.OnAsteroidSpawned -= AddAsteroidPoint;
+                spawner.OnAsteroidDestroyed -= DeleteAsteriodPoint;
+            }
+        }
+
         private void OnGUI ()
         {
             foreach (var pair in _pointsControllers)
