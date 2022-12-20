@@ -7,14 +7,6 @@ using UnityEngine;
 
 namespace SpaceOdysseyVR.SceneController
 {
-    public enum GameState
-    {
-        None = 0,
-        Game = 1,
-        SceneLoading = 2,
-        Menu = 3,
-    }
-
     public class SceneController : MonoBehaviour
     {
         private GameState _gameState;
@@ -50,10 +42,10 @@ namespace SpaceOdysseyVR.SceneController
         private void Awake ()
         {
             DontDestroyOnLoad(gameObject);
-            if (_menuUI != null)
-                DontDestroyOnLoad(_menuUI.gameObject);
-            if (_sceneLoader != null)
-                DontDestroyOnLoad(_sceneLoader.gameObject);
+            //if (_menuUI != null)
+            //    DontDestroyOnLoad(_menuUI.gameObject);
+            //if (_sceneLoader != null)
+            //    DontDestroyOnLoad(_sceneLoader.gameObject);
         }
 
         private void FindAllRequeredComponents ()
@@ -140,5 +132,13 @@ namespace SpaceOdysseyVR.SceneController
             else
                 Debug.LogError("Scene loader not found.");
         }
+    }
+
+    public enum GameState
+    {
+        None = 0,
+        Game = 1,
+        SceneLoading = 2,
+        Menu = 3,
     }
 }
