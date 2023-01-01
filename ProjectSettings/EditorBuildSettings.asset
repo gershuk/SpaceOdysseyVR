@@ -15,5 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/LoaderTestScene.unity
     guid: 1007d3c76ad539a45b5833a85b2a4767
   m_configObjects:
+    Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: b7d7cb03ade072e4f8b4d411c2d0f2bb, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 49041d882036126468b5f89cfffdac8a, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: cef088d4ab7e7554f86ae461c9a0ad33, type: 2}
