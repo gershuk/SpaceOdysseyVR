@@ -7540,7 +7540,7 @@ MonoBehaviour:
   linearMapping: {fileID: 236112115}
   repositionGameObject: 1
   maintainMomemntum: 1
-  momemtumDampenRate: 5
+  momemtumDampenRate: 100
 --- !u!114 &504149795
 MonoBehaviour:
   m_ObjectHideFlags: 0
