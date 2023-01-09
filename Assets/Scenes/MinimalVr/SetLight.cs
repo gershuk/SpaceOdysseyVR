@@ -12,7 +12,7 @@ namespace Valve.VR.InteractionSystem
 	//-------------------------------------------------------------------------
 	public class SetLight : MonoBehaviour
 	{
-		public LinearMapping linearMapping;
+		public StatusComplete statusComplete;
 		public Light light;
 
 		//-------------------------------------------------
@@ -24,9 +24,9 @@ namespace Valve.VR.InteractionSystem
                 light.color = Color.red;
 			}
 
-			if ( linearMapping == null )
+			if ( statusComplete == null )
 			{
-				linearMapping = GetComponent<LinearMapping>();
+				statusComplete = GetComponent<StatusComplete>();
 			}
 		}
 
@@ -34,7 +34,7 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		void Update()
 		{
-            light.color = linearMapping.value == 1 ? Color.green : Color.red;
+            light.color = statusComplete.getStatusComplete() ? Color.green : Color.red;
 		}
 	}
 }
