@@ -40,4 +40,12 @@ public class PowerZoneDrag : MonoBehaviour
             activePowerUnit = null;
         }
     }
+
+    public Valve.VR.InteractionSystem.PowerUnit.InteractionPowerUnit GetPowerUnit() {
+        return activePowerUnit;
+    }
+
+    public bool GetBusy() {
+        return busy;
+    }
 }
