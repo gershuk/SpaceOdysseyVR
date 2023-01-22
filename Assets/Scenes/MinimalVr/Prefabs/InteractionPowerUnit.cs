@@ -9,6 +9,8 @@ namespace Valve.VR.InteractionSystem.PowerUnit
     {
         private bool isStanding = false;
         private Vector3 attachDropPosition;
+        private Quaternion attachDropRotation = Quaternion.identity;
+
 
         private BoxCollider boxCollider;
 
@@ -20,7 +22,7 @@ namespace Valve.VR.InteractionSystem.PowerUnit
         {
             if(isStanding) {
                 transform.position = attachDropPosition;
-                transform.rotation = Quaternion.identity;
+                transform.rotation = attachDropRotation;
                 rigidbody.isKinematic = true;
             } else {
                 rigidbody.isKinematic = false;
@@ -33,7 +35,11 @@ namespace Valve.VR.InteractionSystem.PowerUnit
             var newPosition = position;
             newPosition.y = newPosition.y - (boxCollider.size / 2).y;
             attachDropPosition = newPosition;
-            
+        }
+
+         public void attachStanding(Vector3 position, Quaternion rotation) {
+            this.attachStanding(position);
+            attachDropRotation = rotation;
         }
 
         public void detachStanding() {
