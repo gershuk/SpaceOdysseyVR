@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 8755477955256194446}
   - component: {fileID: 3590826603652247546}
   - component: {fileID: 2737839165464324968}
-  - component: {fileID: 8800829853144128218}
+  - component: {fileID: 8183431508321066180}
   m_Layer: 0
   m_Name: ReactorUnit
   m_TagString: Untagged
@@ -203,7 +203,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.2, y: 0.4, z: 0.2}
   m_Center: {x: 0, y: 0.2, z: 0}
---- !u!114 &8800829853144128218
+--- !u!114 &8183431508321066180
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 607906897074753340}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f55057b70c2f931418ef9a0381c3617d, type: 3}
+  m_Script: {fileID: 11500000, guid: 4774a593968385745b46c55601e0e439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attachmentFlags: 44

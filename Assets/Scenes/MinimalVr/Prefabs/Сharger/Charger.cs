@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Charger : MonoBehaviour
 {
-    public StatusComplete Status1;
-    public StatusComplete Status2;
+    public StatusComplete[] Statuses;
 
     private ChargerWalls chargerWalls;
     private PowerZoneDrag powerZoneDrag;
@@ -20,7 +19,10 @@ public class Charger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var isComplete = Status1.getStatusComplete() && Status2.getStatusComplete();
+        var isComplete = true;
+        foreach(StatusComplete Status in Statuses)
+            isComplete = isComplete && Status.GetStatusComplete();
+
         chargerWalls.gameObject.SetActive(!isComplete);
         powerZoneDrag.gameObject.SetActive(isComplete);
     }

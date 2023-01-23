@@ -17,7 +17,12 @@ public class StatusComplete : Valve.VR.InteractionSystem.LinearMapping
        isComplete = value == 1;
     }
 
-    public bool getStatusComplete() {
+    public bool GetStatusComplete() {
         return isComplete;
+    }
+
+    public void SetValue(float newValve) {
+        value = newValve;
+        isComplete = value == 1;
     }
 }

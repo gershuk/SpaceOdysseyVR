@@ -8,7 +8,7 @@ using UnityEngine;
 public class ReactorDragDrop : MonoBehaviour
 {
     private bool busy = false;
-    private Valve.VR.InteractionSystem.PowerUnit.InteractionPowerUnit activePowerUnit;
+    private InteractionReactorUnit activePowerUnit;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +23,7 @@ public class ReactorDragDrop : MonoBehaviour
 
     void OnTriggerEnter (Collider other) 
     {
-        var powerUnit = other.GetComponent<Valve.VR.InteractionSystem.PowerUnit.InteractionPowerUnit>();
+        var powerUnit = other.GetComponent<InteractionReactorUnit>();
         if(!busy && powerUnit != null) {
             busy = true;
             var boxColliderPowerUnit = powerUnit.GetComponent<BoxCollider>();
@@ -37,7 +37,7 @@ public class ReactorDragDrop : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        var powerUnit = other.GetComponent<Valve.VR.InteractionSystem.PowerUnit.InteractionPowerUnit>();
+        var powerUnit = other.GetComponent<InteractionReactorUnit>();
         if(powerUnit != null && activePowerUnit == powerUnit) {
             busy = false;
             activePowerUnit.detachStanding();
@@ -45,7 +45,7 @@ public class ReactorDragDrop : MonoBehaviour
         }
     }
 
-    public Valve.VR.InteractionSystem.PowerUnit.InteractionPowerUnit GetPowerUnit() {
+    public InteractionReactorUnit GetPowerUnit() {
         return activePowerUnit;
     }
 
@@ -60,8 +60,7 @@ public class ReactorDragDrop : MonoBehaviour
     }
 
     public void MakeCrash() {
-        var isBusy = GetBusy();
-        if(isBusy) {
+        if(busy) {
             var activePowerUnit = GetPowerUnit();
             activePowerUnit.detachStanding();
             var impulse = new Vector3(0.0f, 2.0f, NextFloat(-1f, 1f));
