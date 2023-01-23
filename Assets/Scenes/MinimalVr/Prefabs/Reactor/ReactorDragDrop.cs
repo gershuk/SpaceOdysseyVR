@@ -52,4 +52,24 @@ public class ReactorDragDrop : MonoBehaviour
     public bool GetBusy() {
         return busy;
     }
+
+    static float NextFloat(float min, float max){
+        System.Random random = new System.Random();
+        double val = (random.NextDouble() * (max - min) + min);
+        return (float)val;
+    }
+
+    public void MakeCrash() {
+        var isBusy = GetBusy();
+        if(isBusy) {
+            var activePowerUnit = GetPowerUnit();
+            activePowerUnit.detachStanding();
+            var impulse = new Vector3(0.0f, 2.0f, NextFloat(-1f, 1f));
+            var activePowerUnitRigidbody = activePowerUnit.GetComponent<Rigidbody>();
+            activePowerUnitRigidbody.isKinematic = false;
+            activePowerUnitRigidbody.AddForce(impulse, ForceMode.Impulse);            
+            activePowerUnit = null;
+            busy = false;
+        }
+    }
 }
