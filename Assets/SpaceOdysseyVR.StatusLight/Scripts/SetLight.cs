@@ -7,7 +7,7 @@ namespace SpaceOdysseyVR.StatusLight
 {
     public class SetLight : MonoBehaviour
     {
-        public StatusComplete statusComplete;
+        public Status statusComplete;
         private Light lightComponent;
 
         //-------------------------------------------------
@@ -21,7 +21,7 @@ namespace SpaceOdysseyVR.StatusLight
 
             if (statusComplete == null)
             {
-                statusComplete = GetComponent<StatusComplete>();
+                statusComplete = GetComponent<Status>();
             }
         }
 

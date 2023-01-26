@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace SpaceOdysseyVR.Reactor
 {
-    public class StatusReactor : SpaceOdysseyVR.StatusLight.StatusComplete
+    public class StatusReactor : SpaceOdysseyVR.StatusLight.Status
     {
         private ReactorDragDrop[] reactorDragDrops;
         // Start is called before the first frame update

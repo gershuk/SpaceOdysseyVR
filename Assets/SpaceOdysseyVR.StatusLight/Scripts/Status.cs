@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace SpaceOdysseyVR.StatusLight
 {
-    public class StatusComplete : MonoBehaviour
+    public class Status : MonoBehaviour
     {
         private bool isComplete = false;
         // Start is called before the first frame update

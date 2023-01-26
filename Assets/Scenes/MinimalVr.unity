@@ -1075,11 +1075,11 @@ PrefabInstance:
     - target: {fileID: 3342847452653071178, guid: c78f6d843fa5f7b4d828530c5fecb84c, type: 3}
       propertyPath: linearMapping
       value: 
-      objectReference: {fileID: 1592934050}
+      objectReference: {fileID: 0}
     - target: {fileID: 3342847452653071178, guid: c78f6d843fa5f7b4d828530c5fecb84c, type: 3}
       propertyPath: statusComplete
       value: 
-      objectReference: {fileID: 1592934050}
+      objectReference: {fileID: 1592934054}
     - target: {fileID: 4349547624466853891, guid: c78f6d843fa5f7b4d828530c5fecb84c, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1500,19 +1500,19 @@ PrefabInstance:
     - target: {fileID: 7656996352388267288, guid: c9af306b7c9f7fe43b81dbea90aae844, type: 3}
       propertyPath: Status2
       value: 
-      objectReference: {fileID: 1592934050}
+      objectReference: {fileID: 0}
     - target: {fileID: 7656996352388267288, guid: c9af306b7c9f7fe43b81dbea90aae844, type: 3}
       propertyPath: Statuses.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7656996352388267288, guid: c9af306b7c9f7fe43b81dbea90aae844, type: 3}
       propertyPath: Statuses.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1400514318}
     - target: {fileID: 7656996352388267288, guid: c9af306b7c9f7fe43b81dbea90aae844, type: 3}
       propertyPath: Statuses.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1592934053}
     - target: {fileID: 7656996352388267288, guid: c9af306b7c9f7fe43b81dbea90aae844, type: 3}
       propertyPath: Statuses.Array.data[2]
       value: 
@@ -5104,10 +5104,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1592934049}
-  - component: {fileID: 1592934050}
   - component: {fileID: 1592934052}
   - component: {fileID: 1592934051}
   - component: {fileID: 1592934053}
+  - component: {fileID: 1592934054}
   m_Layer: 0
   m_Name: LinerDriveStatusComelete
   m_TagString: Untagged
@@ -5130,18 +5130,6 @@ Transform:
   m_Father: {fileID: 1912560273}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1592934050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1592934047}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e5af9a4a76616e4595466fd33c9f8d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1592934051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5177,6 +5165,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59c246f4833326e4cb7dbb50c4be272b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1592934054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592934047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e5af9a4a76616e4595466fd33c9f8d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1619322690 stripped
