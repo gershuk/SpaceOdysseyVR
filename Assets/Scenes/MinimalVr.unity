@@ -1503,20 +1503,20 @@ PrefabInstance:
       objectReference: {fileID: 1592934050}
     - target: {fileID: 7656996352388267288, guid: c9af306b7c9f7fe43b81dbea90aae844, type: 3}
       propertyPath: Statuses.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7656996352388267288, guid: c9af306b7c9f7fe43b81dbea90aae844, type: 3}
       propertyPath: Statuses.Array.data[0]
       value: 
-      objectReference: {fileID: 1592934050}
+      objectReference: {fileID: 0}
     - target: {fileID: 7656996352388267288, guid: c9af306b7c9f7fe43b81dbea90aae844, type: 3}
       propertyPath: Statuses.Array.data[1]
       value: 
-      objectReference: {fileID: 1400514315}
+      objectReference: {fileID: 0}
     - target: {fileID: 7656996352388267288, guid: c9af306b7c9f7fe43b81dbea90aae844, type: 3}
       propertyPath: Statuses.Array.data[2]
       value: 
-      objectReference: {fileID: 1112734487}
+      objectReference: {fileID: 0}
     - target: {fileID: 8178388843597318699, guid: c9af306b7c9f7fe43b81dbea90aae844, type: 3}
       propertyPath: m_Name
       value: "\u0421harger"
@@ -3309,7 +3309,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   axisOfRotation: 1
   childCollider: {fileID: 0}
-  linearMapping: {fileID: 1400514315}
+  linearMapping: {fileID: 1400514317}
   hoverLock: 0
   limited: 1
   frozenDistanceMinMaxThreshold: {x: 0.1, y: 0.2}
@@ -3549,7 +3549,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPosition: {fileID: 1378437812}
   endPosition: {fileID: 1979368375}
-  linearMapping: {fileID: 1592934050}
+  linearMapping: {fileID: 1592934051}
   repositionGameObject: 1
   maintainMomemntum: 1
   momemtumDampenRate: 100
@@ -3868,17 +3868,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1774661282298506559, guid: b7c323073beeb0b42a8412d881577235, type: 3}
   m_PrefabInstance: {fileID: 1196495119}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1112734487 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4035776257884245650, guid: 52c8110aa5685a949967ba427a25156f, type: 3}
-  m_PrefabInstance: {fileID: 1425218426}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3780d4c75e6ae143b069ffe53921f37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1114677940
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4533,6 +4522,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1400514314}
   - component: {fileID: 1400514315}
+  - component: {fileID: 1400514317}
+  - component: {fileID: 1400514316}
+  - component: {fileID: 1400514318}
   m_Layer: 0
   m_Name: CircleDriveStatusComplete
   m_TagString: Untagged
@@ -4567,7 +4559,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e5af9a4a76616e4595466fd33c9f8d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1400514316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400514312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e25d9513576f550468e45e32c4919acf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1400514317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400514312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46f8e9e70f68ee3418ad85992778c116, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   value: 0
+--- !u!114 &1400514318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400514312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59c246f4833326e4cb7dbb50c4be272b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1425218426
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5077,6 +5105,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1592934049}
   - component: {fileID: 1592934050}
+  - component: {fileID: 1592934052}
+  - component: {fileID: 1592934051}
+  - component: {fileID: 1592934053}
   m_Layer: 0
   m_Name: LinerDriveStatusComelete
   m_TagString: Untagged
@@ -5111,7 +5142,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e5af9a4a76616e4595466fd33c9f8d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1592934051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592934047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46f8e9e70f68ee3418ad85992778c116, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   value: 0
+--- !u!114 &1592934052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592934047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e25d9513576f550468e45e32c4919acf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1592934053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592934047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59c246f4833326e4cb7dbb50c4be272b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1619322690 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2478961553079219844, guid: b4f729d9618a65543baedfac3b0a7311, type: 3}
