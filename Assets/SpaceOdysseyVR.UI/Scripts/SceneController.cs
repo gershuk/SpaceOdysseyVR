@@ -1,11 +1,10 @@
 #nullable enable
 
 using SpaceOdysseyVR.Player;
-using SpaceOdysseyVR.UI;
 
 using UnityEngine;
 
-namespace SpaceOdysseyVR.SceneController
+namespace SpaceOdysseyVR.UI
 {
     public class SceneController : MonoBehaviour
     {
@@ -54,9 +53,6 @@ namespace SpaceOdysseyVR.SceneController
             _sceneLoader = FindObjectOfType<SceneLoader>(true);
             _player = FindObjectOfType<PlayerController>(true);
         }
-
-        [ContextMenu(nameof(LoadTestScene))]
-        private void LoadTestScene () => LoadScene("LoaderTestScene");
 
         private void OnSceneLoadingDone ()
         {
@@ -129,6 +125,15 @@ namespace SpaceOdysseyVR.SceneController
             GameState = GameState.SceneLoading;
             if (_sceneLoader != null)
                 _sceneLoader.StartLoadingScene(name);
+            else
+                Debug.LogError("Scene loader not found.");
+        }
+
+        public void RestartLevel ()
+        {
+            GameState = GameState.SceneLoading;
+            if (_sceneLoader != null)
+                _sceneLoader.Restart();
             else
                 Debug.LogError("Scene loader not found.");
         }

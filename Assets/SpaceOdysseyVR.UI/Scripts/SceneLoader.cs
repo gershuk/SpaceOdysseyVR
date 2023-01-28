@@ -3,21 +3,19 @@
 using System;
 using System.Collections;
 
-using SpaceOdysseyVR.UI;
-
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace SpaceOdysseyVR.SceneController
+namespace SpaceOdysseyVR.UI
 {
     public sealed class SceneLoader : MonoBehaviour
     {
-        public event Action? OnSceneLoaded;
-
         [SerializeField]
         private LevelLoadingUI _levelLoadingUI;
 
         private Coroutine? _sceneLoadingCoroutine;
+
+        public event Action? OnSceneLoaded;
 
         private IEnumerator LoadAsyncScene (string sceneName)
         {
@@ -39,8 +37,15 @@ namespace SpaceOdysseyVR.SceneController
 
         private void OnEnable () => _levelLoadingUI.gameObject.SetActive(true);
 
+        public void Restart ()
+        {
+            _sceneLoadingCoroutine = _sceneLoadingCoroutine == null
+                                   ? StartCoroutine(LoadAsyncScene(SceneManager.GetActiveScene().name))
+                                   : throw new System.Exception();
+        }
+
         public void StartLoadingScene (string sceneName) =>
-                            _sceneLoadingCoroutine = _sceneLoadingCoroutine == null
+                                    _sceneLoadingCoroutine = _sceneLoadingCoroutine == null
                                     ? StartCoroutine(LoadAsyncScene(sceneName))
                                     : throw new System.Exception();
     }
