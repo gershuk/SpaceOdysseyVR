@@ -7,8 +7,10 @@ using UnityEngine;
 
 namespace SpaceOdysseyVR.ElectroProps
 {
+    [RequireComponent(typeof(AudioSource))]
     public sealed class PowerCore : MonoBehaviour
     {
+        private AudioSource _audioSource;
         private CoreState _coreState = CoreState.None;
 
         [SerializeField]
@@ -86,6 +88,11 @@ namespace SpaceOdysseyVR.ElectroProps
         {
             OnPowerOn?.Invoke();
             return this;
+        }
+
+        private void Start ()
+        {
+            _audioSource = GetComponent<AudioSource>();
         }
 
         private IEnumerator StartingCorutine ()

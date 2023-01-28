@@ -3,13 +3,17 @@
 using System;
 using System.Collections;
 
+using SpaceOdysseyVR.Player;
+
 using UnityEngine;
 
 namespace SpaceOdysseyVR.ElectroProps
 {
+    [RequireComponent(typeof(AudioSource))]
     [RequireComponent(typeof(BoxCollider))]
     public sealed class DoorController : MonoBehaviour
     {
+        private AudioSource _audioSource;
         private BoxCollider _boxCollider;
 
         [SerializeField]
@@ -40,12 +44,15 @@ namespace SpaceOdysseyVR.ElectroProps
         private IEnumerator Move ()
         {
             const float eps = 1e-5f;
-            var procesTime = Vector3.Distance(_door.position, Destination)
-                            / Vector3.Distance(_lockPosition, _openPosition);
+            var startPosition = _door.position;
+            var procesTime = Vector3.Distance(startPosition, Destination)
+                            / Vector3.Distance(_lockPosition, _openPosition) * _openTime;
             var startTime = Time.time;
+            if (Vector3.Distance(startPosition, Destination) > eps)
+                _audioSource.Play();
             while (Vector3.Distance(_door.position, Destination) > eps)
             {
-                _door.position = Vector3.Lerp(_door.position, Destination, (Time.time - startTime) / procesTime);
+                _door.position = Vector3.Lerp(startPosition, Destination, (Time.time - startTime) / procesTime);
                 yield return null;
             }
         }
@@ -76,7 +83,7 @@ namespace SpaceOdysseyVR.ElectroProps
         {
             if (_hasPower)
             {
-                if (other.GetComponent<CharacterController>())
+                if (other.GetComponent<PlayerController>())
                     _isOpen = true;
                 RestartCoroutine();
             }
@@ -86,7 +93,7 @@ namespace SpaceOdysseyVR.ElectroProps
         {
             if (_hasPower)
             {
-                if (other.GetComponent<CharacterController>())
+                if (other.GetComponent<PlayerController>())
                     _isOpen = false;
                 RestartCoroutine();
             }
@@ -100,6 +107,8 @@ namespace SpaceOdysseyVR.ElectroProps
 
         private void Start ()
         {
+            _audioSource = GetComponent<AudioSource>();
+
             _lockPosition = _door.localPosition;
             _openPosition = _lockPosition + Vector3.up * _delta;
 
@@ -121,6 +130,7 @@ namespace SpaceOdysseyVR.ElectroProps
             {
                 StopCoroutine(_movingCoroutine);
                 _movingCoroutine = null;
+                _audioSource.Stop();
             }
         }
     }

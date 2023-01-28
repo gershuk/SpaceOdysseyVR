@@ -1,7 +1,9 @@
 {
     "name": "SpaceOdysseyVR.ElectroProps",
     "rootNamespace": "SpaceOdysseyVR.ElectroProps",
-    "references": [],
+    "references": [
+        "GUID:9f08d2c75950f6a4c8b4325246935c3a"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
