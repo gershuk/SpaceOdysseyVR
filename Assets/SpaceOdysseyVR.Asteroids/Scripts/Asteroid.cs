@@ -77,7 +77,7 @@ namespace SpaceOdysseyVR.Asteroids
         {
             var healthComponent = collision.transform.GetComponent<HealthComponent>();
             var asteroid = collision.transform.GetComponent<Asteroid>();
-            healthComponent.TakeDamage(asteroid == null ? _damge : _damge / 10);
+            healthComponent?.TakeDamage(asteroid == null ? _damge : _damge / 10);
         }
 
         private void OnDeath ()
