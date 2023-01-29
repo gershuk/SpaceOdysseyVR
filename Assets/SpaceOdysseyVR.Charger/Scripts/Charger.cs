@@ -40,6 +40,17 @@ namespace SpaceOdysseyVR.Charger
                 status.charged = false;
             }
         }
+
+        public bool isCharged ()
+        {
+            if (powerZoneDrag.GetBusy())
+            {
+                var powerUnit = powerZoneDrag.GetPowerUnit();
+                var status = powerUnit.GetComponent<PowerUnitStatus>();
+                return status.charged;
+            }
+            return false;
+        }
     }
 
 }
