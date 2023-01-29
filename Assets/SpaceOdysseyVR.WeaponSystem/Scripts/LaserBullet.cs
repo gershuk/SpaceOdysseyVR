@@ -6,9 +6,8 @@ using UnityEngine;
 
 namespace SpaceOdysseyVR.WeaponSystem
 {
-    [RequireComponent(typeof(TrailRenderer))]
     [RequireComponent(typeof(Rigidbody))]
-    [RequireComponent(typeof(SphereCollider))]
+    [RequireComponent(typeof(CapsuleCollider))]
     public sealed class LaserBullet : MonoBehaviour
     {
         private static Material? _material;
@@ -26,17 +25,7 @@ namespace SpaceOdysseyVR.WeaponSystem
 
         private Rigidbody _rigidbody;
 
-        [SerializeField]
-        [Range(0f, 1f)]
-        private float _size = 0.5f;
-
-        private SphereCollider _sphereCollider;
-
-        [SerializeField]
-        [Range(0.01f, 1f)]
-        private float _trailLifeTime = 0.2f;
-
-        private TrailRenderer _trailRenderer;
+        private void AddForce () => _rigidbody.AddRelativeForce(new Vector3(0, 0, _forceModule), ForceMode.Impulse);
 
         private void OnCollisionEnter (Collision collision)
         {
@@ -54,17 +43,7 @@ namespace SpaceOdysseyVR.WeaponSystem
             _rigidbody = GetComponent<Rigidbody>();
             _rigidbody.isKinematic = false;
             _rigidbody.useGravity = false;
-            _rigidbody.AddRelativeForce(new Vector3(0, 0, _forceModule), ForceMode.Impulse);
-
-            _sphereCollider = GetComponent<SphereCollider>();
-            _sphereCollider.radius = _size;
-            _sphereCollider.isTrigger = false;
-
-            _trailRenderer = GetComponent<TrailRenderer>();
-            _trailRenderer.material = _material;
-            _trailRenderer.startWidth = _size;
-            _trailRenderer.endWidth = _size;
-            _trailRenderer.time = _trailLifeTime;
+            Invoke(nameof(AddForce), 0.3f);
 
             Destroy(gameObject, _lifeTime);
         }

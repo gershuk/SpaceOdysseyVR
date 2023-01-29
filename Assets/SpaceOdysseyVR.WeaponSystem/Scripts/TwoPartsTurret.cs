@@ -101,7 +101,7 @@ namespace SpaceOdysseyVR.WeaponSystem
             _lastShootTime = Time.time;
 
             if (_ammorPrefab == null)
-                _ammorPrefab = Resources.Load<GameObject>(@"Prefabs/Laser");
+                _ammorPrefab = Resources.Load<GameObject>(@"Prefabs/Laser2");
 
             if (_aimPointMarkerPrefab == null)
                 _aimPointMarkerPrefab = Resources.Load<GameObject>(@"Prefabs/Aim");

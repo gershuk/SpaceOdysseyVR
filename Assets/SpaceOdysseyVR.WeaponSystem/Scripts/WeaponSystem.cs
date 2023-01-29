@@ -48,11 +48,18 @@ namespace SpaceOdysseyVR.WeaponSystem
             if (_powerCore == null)
                 _powerCore = FindObjectOfType<PowerCore>();
 
-            _powerCore.OnPowerOff += OnPowerOff;
-            _powerCore.OnPowerOn += OnPowerOn;
+            _powerCore.OnCorePowerOff += OnPowerOff;
+            _powerCore.OnCorePowerOn += OnPowerOn;
+
+            _active = _powerCore.CoreState is not CoreState.None and not CoreState.Stopped;
 
             if (_pointer == null)
                 _pointer = transform;
+
+            foreach (var turret in _turrets)
+            {
+                turret.TargetPoint = turret.transform.forward * 1 + turret.transform.position;
+            }
         }
 
         private void Update ()
@@ -61,7 +68,7 @@ namespace SpaceOdysseyVR.WeaponSystem
             {
                 var point = Physics.Raycast(_pointer!.position, _pointer.forward, out var raycastHit, _maxDistance, ~(1 << 2))
                     ? raycastHit.point
-                    : _pointer.forward * _maxDistance;
+                    : _pointer.position + _pointer.forward * _maxDistance;
                 foreach (var turret in _turrets)
                 {
                     turret.TargetPoint = point;

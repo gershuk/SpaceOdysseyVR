@@ -78,12 +78,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damage: 100
   _forceModule: 20
-  _lifeTime: 7.01
+  _lifeTime: 2.84
   _size: 0.116
   _trailLifeTime: 0.129
 --- !u!96 &451322921
 TrailRenderer:
-  serializedVersion: 3
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -184,11 +184,8 @@ TrailRenderer:
     numCapVertices: 0
     alignment: 0
     textureMode: 0
-    textureScale: {x: 1, y: 1}
     shadowBias: 0.5
     generateLightingData: 0
   m_MinVertexDistance: 0.1
-  m_MaskInteraction: 0
   m_Autodestruct: 0
   m_Emitting: 1
-  m_ApplyActiveColorSpace: 1
