@@ -30,8 +30,8 @@ namespace SpaceOdysseyVR.AsteroidRadar
         private Transform _transform;
 
         [SerializeField]
-        [Range(1f, 100f)]
-        private uint _zoomScale = 1;
+        [Range(0.0001f, 100f)]
+        private float _zoomScale = 1;
 
         private void AddAsteroidPoint (Asteroid asteroid)
         {
