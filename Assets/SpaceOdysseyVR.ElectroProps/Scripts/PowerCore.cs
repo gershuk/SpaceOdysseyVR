@@ -81,6 +81,7 @@ namespace SpaceOdysseyVR.ElectroProps
         private PowerCore OnStoppedState ()
         {
             OnPowerOff?.Invoke();
+            _audioSource.Stop();
             return this;
         }
 
@@ -93,12 +94,14 @@ namespace SpaceOdysseyVR.ElectroProps
         private void Start ()
         {
             _audioSource = GetComponent<AudioSource>();
+            _audioSource.loop = true;
         }
 
         private IEnumerator StartingCorutine ()
         {
             var startTIme = Time.time;
             var flickering = false;
+            _audioSource.Play();
             while (Time.time - startTIme < _startingTime || flickering)
             {
                 if (flickering)
