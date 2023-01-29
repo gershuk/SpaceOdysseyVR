@@ -70,9 +70,9 @@ namespace SpaceOdysseyVR.ElectroProps
                             $"Current {CoreState}. All cells setted = {AllCellsSetted}");
                         return;
 
-                    case (CoreState.Stopped, not CoreState.Working, _):
-                        Debug.LogError($"For stoping core state should be {CoreState.Working}. Current {CoreState}");
-                        return;
+                        //case (CoreState.Stopped, not CoreState.Working, _):
+                        //    Debug.LogError($"For stoping core state should be {CoreState.Working}. Current {CoreState}");
+                        //    return;
                 }
 
                 _coreState = value;

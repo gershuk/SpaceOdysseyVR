@@ -3,7 +3,8 @@
     "rootNamespace": "SpaceOdysseyVR.ElectroProps",
     "references": [
         "GUID:9f08d2c75950f6a4c8b4325246935c3a",
-        "GUID:44d590ac7517754459fccc191c11c8e3"
+        "GUID:44d590ac7517754459fccc191c11c8e3",
+        "GUID:0296b70d3928c754a9926e9e8ec0bfe9"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
