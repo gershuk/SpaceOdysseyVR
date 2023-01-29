@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 
 using SpaceOdysseyVR.Asteroids;
+using SpaceOdysseyVR.ElectroProps;
 
 using UnityEngine;
 
@@ -23,6 +24,8 @@ namespace SpaceOdysseyVR.AsteroidRadar
         [SerializeField]
         [Range(1f, 100f)]
         private float _pointSize = 1;
+
+        private PowerCore _powerCore;
 
         [SerializeField]
         private Transform _radarTransform;
@@ -70,8 +73,18 @@ namespace SpaceOdysseyVR.AsteroidRadar
             }
         }
 
+        private void OnPowerOff () => _canvas.enabled = false;
+
+        private void OnPowerOn () => _canvas.enabled = true;
+
         private void Start ()
         {
+            if (_powerCore == null)
+                _powerCore = FindObjectOfType<PowerCore>();
+
+            _powerCore.OnPowerOff += OnPowerOff;
+            _powerCore.OnPowerOn += OnPowerOn;
+
             _transform = transform;
 
             if (_pointPrefab == null)
