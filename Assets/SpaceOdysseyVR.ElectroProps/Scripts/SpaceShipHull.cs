@@ -19,6 +19,8 @@ namespace SpaceOdysseyVR.ElectroProps
 
         public event Action? OnShipDeath;
 
+        public event Action? OnTakingDamage;
+
         private void OnCollisionEnter (Collision collision)
         {
             var healthComponent = collision.transform.GetComponent<HealthComponent>();
@@ -35,7 +37,7 @@ namespace SpaceOdysseyVR.ElectroProps
             Destroy(gameObject);
         }
 
-        private void OnHealthChange (uint obj) => _powerCore.CoreState = CoreState.Stopped;
+        private void OnHealthChange (uint obj) => OnTakingDamage?.Invoke();
 
         private void Start ()
         {

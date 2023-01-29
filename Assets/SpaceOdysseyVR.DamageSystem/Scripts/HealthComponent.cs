@@ -37,8 +37,10 @@ namespace SpaceOdysseyVR.DamageSystem
             }
         }
 
+        public uint MaxHealth { get => _maxHealth; set => _maxHealth = value; }
+
         public void TakeDamage (uint damage) => Health = Math.Max(0, Health - damage);
 
-        public void TakeHeal (uint heal) => Health = Math.Min(_maxHealth, Health + heal);
+        public void TakeHeal (uint heal) => Health = Math.Min(MaxHealth, Health + heal);
     }
 }

@@ -11,7 +11,7 @@ namespace SpaceOdysseyVR.ElectroProps
 {
     [RequireComponent(typeof(AudioSource))]
     [RequireComponent(typeof(BoxCollider))]
-    public sealed class DoorController : MonoBehaviour
+    public sealed class DoorController : AbstractProp
     {
         private AudioSource _audioSource;
         private BoxCollider _boxCollider;
@@ -36,9 +36,6 @@ namespace SpaceOdysseyVR.ElectroProps
         [Range(0f, 100f)]
         private float _openTime;
 
-        [SerializeField]
-        private PowerCore? _powerCore;
-
         private Vector3 Destination => _isOpen ? _openPosition : _lockPosition;
 
         private IEnumerator Move ()
@@ -61,22 +58,9 @@ namespace SpaceOdysseyVR.ElectroProps
         {
             if (_powerCore != null)
             {
-                _powerCore.OnPowerOff -= OnPowerOff;
-                _powerCore.OnPowerOn -= OnPowerOn;
+                _powerCore.OnCorePowerOff -= OnPowerOff;
+                _powerCore.OnCorePowerOn -= OnPowerOn;
             }
-        }
-
-        private void OnPowerOff ()
-        {
-            _hasPower = false;
-            StopCoroutine();
-        }
-
-        private void OnPowerOn ()
-        {
-            _hasPower = true;
-            _isOpen = false;
-            RestartCoroutine();
         }
 
         private void OnTriggerEnter (Collider other)
@@ -105,8 +89,32 @@ namespace SpaceOdysseyVR.ElectroProps
             _movingCoroutine = StartCoroutine(Move());
         }
 
-        private void Start ()
+        private void StopCoroutine ()
         {
+            if (_movingCoroutine != null)
+            {
+                StopCoroutine(_movingCoroutine);
+                _movingCoroutine = null;
+                _audioSource.Stop();
+            }
+        }
+
+        protected override void PowerOff ()
+        {
+            _hasPower = false;
+            StopCoroutine();
+        }
+
+        protected override void PowerOn ()
+        {
+            _hasPower = true;
+            _isOpen = false;
+            RestartCoroutine();
+        }
+
+        protected override void Start ()
+        {
+            base.Start();
             _audioSource = GetComponent<AudioSource>();
 
             _lockPosition = _door.localPosition;
@@ -117,21 +125,11 @@ namespace SpaceOdysseyVR.ElectroProps
 
             if (_powerCore == null)
                 _powerCore = FindObjectOfType<PowerCore>();
-            _powerCore.OnPowerOff += OnPowerOff;
-            _powerCore.OnPowerOn += OnPowerOn;
+            _powerCore.OnCorePowerOff += OnPowerOff;
+            _powerCore.OnCorePowerOn += OnPowerOn;
 
             if (_powerCore.CoreState is not CoreState.Working)
                 OnPowerOff();
-        }
-
-        private void StopCoroutine ()
-        {
-            if (_movingCoroutine != null)
-            {
-                StopCoroutine(_movingCoroutine);
-                _movingCoroutine = null;
-                _audioSource.Stop();
-            }
         }
     }
 }

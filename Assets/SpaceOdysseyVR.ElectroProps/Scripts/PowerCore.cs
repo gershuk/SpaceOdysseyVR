@@ -13,11 +13,14 @@ namespace SpaceOdysseyVR.ElectroProps
         private bool _allCellsSetted;
 
         private AudioSource _audioSource;
+
         private CoreState _coreState = CoreState.None;
 
         [SerializeField]
         [Range(0.001f, 2f)]
         private float _flickerTime = 0.237f;
+
+        private SpaceShipHull _spaceShipHull;
 
         private Coroutine? _startingCorutine;
 
@@ -25,11 +28,11 @@ namespace SpaceOdysseyVR.ElectroProps
         [Range(1f, 10f)]
         private float _startingTime = 1f;
 
-        public event Action? OnPowerOff;
+        public event Action? OnCorePowerOff;
 
-        public event Action? OnPowerOn;
+        public event Action? OnCorePowerOn;
 
-        public event Action<float>? OnStartingProgressChange;
+        public event Action<float>? OnCoreStartingProgressChange;
 
         public bool AllCellsSetted
         {
@@ -103,19 +106,25 @@ namespace SpaceOdysseyVR.ElectroProps
 
         private PowerCore OnStoppedState ()
         {
-            OnPowerOff?.Invoke();
+            OnCorePowerOff?.Invoke();
             _audioSource.Stop();
             return this;
         }
 
         private PowerCore OnWorkingState ()
         {
-            OnPowerOn?.Invoke();
+            OnCorePowerOn?.Invoke();
             return this;
         }
 
         private void Start ()
         {
+            _spaceShipHull = FindObjectOfType<SpaceShipHull>();
+            _spaceShipHull.OnTakingDamage += () =>
+                                             {
+                                                 if (UnityEngine.Random.Range(0, 100) > 50)
+                                                     CoreState = CoreState.Stopped;
+                                             };
             _audioSource = GetComponent<AudioSource>();
             _audioSource.loop = true;
         }
@@ -129,27 +138,21 @@ namespace SpaceOdysseyVR.ElectroProps
             {
                 if (flickering)
                 {
-                    OnPowerOn?.Invoke();
+                    OnCorePowerOn?.Invoke();
                 }
                 else
                 {
-                    OnPowerOff?.Invoke();
+                    OnCorePowerOff?.Invoke();
                 }
                 flickering = !flickering;
-                OnStartingProgressChange?.Invoke(Math.Min(1, (Time.time - startTIme) / _startingTime));
+                OnCoreStartingProgressChange?.Invoke(Math.Min(1, (Time.time - startTIme) / _startingTime));
                 yield return new WaitForSeconds(_flickerTime);
             }
 
-            OnStartingProgressChange?.Invoke(1);
+            OnCoreStartingProgressChange?.Invoke(1);
             _startingCorutine = null;
             CoreState = CoreState.Working;
         }
-
-        [ContextMenu(nameof(DropAllCells))]
-        public bool DropAllCells () => AllCellsSetted = false;
-
-        [ContextMenu(nameof(SetAllCells))]
-        public bool SetAllCells () => AllCellsSetted = true;
 
         #region Context menu
 
@@ -158,6 +161,19 @@ namespace SpaceOdysseyVR.ElectroProps
 
         [ContextMenu(nameof(SetStopState))]
         private void SetStopState () => CoreState = CoreState.Stopped;
+
+        [ContextMenu(nameof(DropAllCells))]
+        public void DropAllCells () => AllCellsSetted = false;
+
+        [ContextMenu("Init all")]
+        public void InitAll ()
+        {
+            AllCellsSetted = true;
+            CoreState = CoreState.Starting;
+        }
+
+        [ContextMenu(nameof(SetAllCells))]
+        public void SetAllCells () => AllCellsSetted = true;
 
         #endregion Context menu
     }

@@ -9,8 +9,7 @@ using UnityEngine;
 
 namespace SpaceOdysseyVR.AsteroidRadar
 {
-    [RequireComponent(typeof(Canvas))]
-    public sealed class AsteroidRadar : MonoBehaviour
+    public sealed class AsteroidRadar : AbstractProp
     {
         private static GameObject? _pointPrefab;
 
@@ -22,10 +21,8 @@ namespace SpaceOdysseyVR.AsteroidRadar
         private Canvas _canvas;
 
         [SerializeField]
-        [Range(1f, 100f)]
+        [Range(0.0001f, 100f)]
         private float _pointSize = 1;
-
-        private PowerCore _powerCore;
 
         [SerializeField]
         private Transform _radarTransform;
@@ -38,7 +35,7 @@ namespace SpaceOdysseyVR.AsteroidRadar
 
         private void AddAsteroidPoint (Asteroid asteroid)
         {
-            var pointController = Instantiate(_pointPrefab, _transform)!.GetComponent<RadarPointController>();
+            var pointController = Instantiate(_pointPrefab, _canvas.transform)!.GetComponent<RadarPointController>();
             pointController.Size = _pointSize;
             _pointsControllers.Add(asteroid, pointController);
         }
@@ -73,17 +70,18 @@ namespace SpaceOdysseyVR.AsteroidRadar
             }
         }
 
-        private void OnPowerOff () => _canvas.enabled = false;
+        protected override void PowerOff () => _canvas.enabled = false;
 
-        private void OnPowerOn () => _canvas.enabled = true;
+        protected override void PowerOn () => _canvas.enabled = true;
 
-        private void Start ()
+        protected override void Start ()
         {
+            base.Start();
             if (_powerCore == null)
                 _powerCore = FindObjectOfType<PowerCore>();
 
-            _powerCore.OnPowerOff += OnPowerOff;
-            _powerCore.OnPowerOn += OnPowerOn;
+            _powerCore.OnCorePowerOff += OnPowerOff;
+            _powerCore.OnCorePowerOn += OnPowerOn;
 
             _transform = transform;
 

@@ -5,7 +5,7 @@ using UnityEngine;
 namespace SpaceOdysseyVR.ElectroProps
 {
     [RequireComponent(typeof(Light))]
-    public sealed class LightController : MonoBehaviour
+    public sealed class LightController : AbstractProp
     {
         private Light _light;
 
@@ -13,40 +13,31 @@ namespace SpaceOdysseyVR.ElectroProps
         [Range(0.01f, 10f)]
         private float _maxIntensity = 1f;
 
-        [SerializeField]
-        private PowerCore? _powerCore;
-
         private void OnDestroy ()
         {
             if (_powerCore != null)
             {
-                _powerCore.OnPowerOff -= OnPowerOff;
-                _powerCore.OnPowerOn -= OnPowerOn;
-                _powerCore.OnStartingProgressChange -= OnStartingProgressChange;
+                _powerCore.OnCorePowerOff -= OnPowerOff;
+                _powerCore.OnCorePowerOn -= OnPowerOn;
+                _powerCore.OnCoreStartingProgressChange -= OnStartingProgressChange;
             }
         }
 
-        private void OnPowerOff () => _light.enabled = false;
-
-        private void OnPowerOn () => _light.enabled = true;
-
-        private void OnStartingProgressChange (float value) =>
-            _light.intensity = _maxIntensity * value;
-
-        private void Start ()
+        protected override void OnStartingProgressChange (float value)
         {
+            base.OnStartingProgressChange(value);
+            _light.intensity = _maxIntensity * value;
+        }
+
+        protected override void PowerOff () => _light.enabled = false;
+
+        protected override void PowerOn () => _light.enabled = true;
+
+        protected override void Start ()
+        {
+            base.Start();
             _light = GetComponent<Light>();
             _light.intensity = _maxIntensity;
-
-            if (_powerCore == null)
-                _powerCore = FindObjectOfType<PowerCore>();
-
-            _powerCore.OnPowerOff += OnPowerOff;
-            _powerCore.OnPowerOn += OnPowerOn;
-            _powerCore.OnStartingProgressChange += OnStartingProgressChange;
-
-            if (_powerCore.CoreState is not CoreState.Working)
-                OnPowerOff();
         }
     }
 }
