@@ -1,16 +1,22 @@
 #nullable enable
 
+using SpaceOdysseyVR.ElectroProps;
+
 using UnityEngine;
 
 namespace SpaceOdysseyVR.WeaponSystem
 {
     public class WeaponSystem : MonoBehaviour
     {
+        private bool _active;
+
         [SerializeField]
         private float _maxDistance;
 
         [SerializeField]
         private Transform? _pointer;
+
+        private PowerCore _powerCore;
 
         [SerializeField]
         private TwoPartsTurret[] _turrets;
@@ -32,29 +38,46 @@ namespace SpaceOdysseyVR.WeaponSystem
             }
         }
 
+        private void OnPowerOff () => _active = false;
+
+        private void OnPowerOn () => _active = true;
+
         private void Start ()
         {
+            _active = true;
+            if (_powerCore == null)
+                _powerCore = FindObjectOfType<PowerCore>();
+
+            _powerCore.OnPowerOff += OnPowerOff;
+            _powerCore.OnPowerOn += OnPowerOn;
+
             if (_pointer == null)
                 _pointer = transform;
         }
 
         private void Update ()
         {
-            var point = Physics.Raycast(_pointer!.position, _pointer.forward, out var raycastHit, _maxDistance, ~(1 << 2))
-                ? raycastHit.point
-                : _pointer.forward * _maxDistance;
-            foreach (var turret in _turrets)
+            if (_active)
             {
-                turret.TargetPoint = point;
+                var point = Physics.Raycast(_pointer!.position, _pointer.forward, out var raycastHit, _maxDistance, ~(1 << 2))
+                    ? raycastHit.point
+                    : _pointer.forward * _maxDistance;
+                foreach (var turret in _turrets)
+                {
+                    turret.TargetPoint = point;
+                }
             }
         }
 
         [ContextMenu(nameof(Shoot))]
         public void Shoot ()
         {
-            foreach (var turret in _turrets)
+            if (_active)
             {
-                _ = turret.Shoot();
+                foreach (var turret in _turrets)
+                {
+                    _ = turret.Shoot();
+                }
             }
         }
     }
