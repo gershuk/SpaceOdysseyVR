@@ -10,6 +10,8 @@ namespace SpaceOdysseyVR.ElectroProps
     [RequireComponent(typeof(AudioSource))]
     public sealed class PowerCore : MonoBehaviour
     {
+        private bool _allCellsSetted;
+
         private AudioSource _audioSource;
         private CoreState _coreState = CoreState.None;
 
@@ -29,6 +31,21 @@ namespace SpaceOdysseyVR.ElectroProps
 
         public event Action<float>? OnStartingProgressChange;
 
+        public bool AllCellsSetted
+        {
+            get => _allCellsSetted;
+            set
+            {
+                if (_allCellsSetted == value)
+                    return;
+
+                _allCellsSetted = value;
+
+                if (!_allCellsSetted)
+                    CoreState = CoreState.Stopped;
+            }
+        }
+
         public CoreState CoreState
         {
             get => _coreState;
@@ -37,17 +54,23 @@ namespace SpaceOdysseyVR.ElectroProps
                 if (_coreState == value)
                     return;
 
-                switch (value, CoreState)
+                switch (value, CoreState, _allCellsSetted)
                 {
-                    case (CoreState.Starting, not (CoreState.None or CoreState.Stopped)):
-                        Debug.LogError($"To start core state should be {CoreState.None} or {CoreState.Stopped}. Current {CoreState}");
+                    case (CoreState.Starting or CoreState.Working, _, false):
+                        Debug.LogError($"Cells should be setted. All cells setted = {AllCellsSetted}");
                         return;
 
-                    case (CoreState.Working, not CoreState.Starting):
-                        Debug.LogError($"For working core state should be {CoreState.Starting}. Current {CoreState}");
+                    case (CoreState.Starting, not (CoreState.None or CoreState.Stopped), _):
+                        Debug.LogError($"To start core state should be {CoreState.None} or {CoreState.Stopped}. " +
+                            $"Current {CoreState}. All cells setted = {AllCellsSetted}");
                         return;
 
-                    case (CoreState.Stopped, not CoreState.Working):
+                    case (CoreState.Working, not CoreState.Starting, _):
+                        Debug.LogError($"For working core state should be {CoreState.Starting}. " +
+                            $"Current {CoreState}. All cells setted = {AllCellsSetted}");
+                        return;
+
+                    case (CoreState.Stopped, not CoreState.Working, _):
                         Debug.LogError($"For stoping core state should be {CoreState.Working}. Current {CoreState}");
                         return;
                 }
@@ -121,6 +144,12 @@ namespace SpaceOdysseyVR.ElectroProps
             _startingCorutine = null;
             CoreState = CoreState.Working;
         }
+
+        [ContextMenu(nameof(DropAllCells))]
+        public bool DropAllCells () => AllCellsSetted = false;
+
+        [ContextMenu(nameof(SetAllCells))]
+        public bool SetAllCells () => AllCellsSetted = true;
 
         #region Context menu
 
