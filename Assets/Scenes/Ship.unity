@@ -1352,7 +1352,6 @@ GameObject:
   - component: {fileID: 111700320}
   - component: {fileID: 111700319}
   - component: {fileID: 111700318}
-  - component: {fileID: 111700317}
   - component: {fileID: 111700316}
   m_Layer: 0
   m_Name: Handle
@@ -1406,25 +1405,6 @@ MonoBehaviour:
   previewPoseSelection: 0
   blendingBehaviours: []
   scale: 1
---- !u!114 &111700317
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 111700314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 817521c5973e4ee45905ee97df3c38ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  linearMapping: {fileID: 0}
-  teethCount: 128
-  minimumPulseDuration: 500
-  maximumPulseDuration: 900
-  onPulse:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &111700318
 MonoBehaviour:
   m_ObjectHideFlags: 0
