@@ -7,6 +7,7 @@ namespace SpaceOdysseyVR.ElectroProps
     [RequireComponent(typeof(Light))]
     public sealed class LightController : AbstractProp
     {
+        [SerializeField]
         private Light _light;
 
         [SerializeField]
@@ -29,7 +30,10 @@ namespace SpaceOdysseyVR.ElectroProps
             _light.intensity = _maxIntensity * value;
         }
 
-        protected override void PowerOff () => _light.enabled = false;
+        protected override void PowerOff ()
+        {
+            _light.enabled = false;
+        }
 
         protected override void PowerOn () => _light.enabled = true;
 
