@@ -9,6 +9,7 @@ using UnityEngine;
 
 namespace SpaceOdysseyVR.AsteroidRadar
 {
+    [RequireComponent(typeof(AudioSource))]
     public sealed class AsteroidRadar : AbstractProp
     {
         private static GameObject? _pointPrefab;
@@ -16,6 +17,9 @@ namespace SpaceOdysseyVR.AsteroidRadar
         private readonly Dictionary<Asteroid, RadarPointController> _pointsControllers = new();
 
         private AsteroidsSpawner[] _asteroidsSpawners;
+
+        [SerializeField]
+        private AudioSource _audioSource;
 
         [SerializeField]
         private Canvas _canvas;
@@ -73,6 +77,12 @@ namespace SpaceOdysseyVR.AsteroidRadar
             }
         }
 
+        private void OnNewWave ()
+        {
+            if (IsPowered && IsAlive)
+                _audioSource.Play();
+        }
+
         protected override void PowerOff () => _canvas.enabled = false;
 
         protected override void PowerOn () => _canvas.enabled = true;
@@ -80,6 +90,7 @@ namespace SpaceOdysseyVR.AsteroidRadar
         protected override void Start ()
         {
             base.Start();
+            _audioSource = GetComponent<AudioSource>();
             if (_powerCore == null)
                 _powerCore = FindObjectOfType<PowerCore>();
 
@@ -100,6 +111,7 @@ namespace SpaceOdysseyVR.AsteroidRadar
             {
                 spawner.OnAsteroidSpawned += AddAsteroidPoint;
                 spawner.OnAsteroidDestroyed += DeleteAsteriodPoint;
+                spawner.OnNewWave += OnNewWave;
                 foreach (var spawnedAsteroid in spawner.SpawnedAsteroids)
                 {
                     AddAsteroidPoint(spawnedAsteroid);

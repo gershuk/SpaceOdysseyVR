@@ -45,6 +45,8 @@ namespace SpaceOdysseyVR.ElectroProps
             }
         }
 
+        public bool IsAlive => _healthComponent.Health == _healthComponent.MaxHealth;
+
         private void OnHealthChange (uint health)
         {
             var maxHealth = _healthComponent.MaxHealth;
@@ -63,15 +65,14 @@ namespace SpaceOdysseyVR.ElectroProps
 
         private void UpdateForm ()
         {
-            if (_healthComponent.Health == _healthComponent.MaxHealth)
+            if (IsAlive)
             {
                 if (_good)
                     _good.SetActive(true);
                 if (_bad)
                     _bad.SetActive(false);
             }
-
-            if (_healthComponent.Health != _healthComponent.MaxHealth)
+            else
             {
                 if (_good)
                     _good.SetActive(false);

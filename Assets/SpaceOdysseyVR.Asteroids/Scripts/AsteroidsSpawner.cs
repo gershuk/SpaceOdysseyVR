@@ -58,6 +58,8 @@ namespace SpaceOdysseyVR.Asteroids
 
         public event Action<Asteroid>? OnAsteroidSpawned;
 
+        public event Action? OnNewWave;
+
         public event Action? SpawningEndedAndAllDestoried;
 
         public IReadOnlyCollection<Asteroid> SpawnedAsteroids => _spawnedAsteroids;
@@ -146,6 +148,7 @@ namespace SpaceOdysseyVR.Asteroids
             while (!(parameters.Timeout.HasValue && Time.time - time < parameters.Timeout)
                     && remainsDirectAsteroidsCount > 0)
             {
+                OnNewWave?.Invoke();
                 for (var i = 0; i < parameters.PartitionDirectAsteroidsCount; ++i)
                 {
                     var prefab = _asteroidPrefabs[UnityEngine.Random.Range(0, _asteroidPrefabs.Length - 1)];
