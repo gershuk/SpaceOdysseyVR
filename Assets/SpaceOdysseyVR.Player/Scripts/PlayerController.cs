@@ -1,19 +1,22 @@
 #nullable enable
 
+using Unity.Plastic.Newtonsoft.Json.Serialization;
+
 using UnityEngine;
 
 namespace SpaceOdysseyVR.Player
 {
     public class PlayerController : MonoBehaviour
     {
-        // Start is called before the first frame update
-        private void Start ()
-        {
-        }
+        private Action _hideMenu;
+        private Action _showMenu;
+        public Action BackToGame { get => _hideMenu; set => _hideMenu = value; }
+        public Action ShowMenu { get => _showMenu; set => _showMenu = value; }
 
-        // Update is called once per frame
-        private void Update ()
-        {
-        }
+        [ContextMenu("BackToGame")]
+        private void BackToGameSupport () => BackToGame?.Invoke();
+
+        [ContextMenu("ShowMenu")]
+        private void ShowMenuSupport () => ShowMenu?.Invoke();
     }
 }

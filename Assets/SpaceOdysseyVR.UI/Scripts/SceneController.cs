@@ -59,7 +59,13 @@ namespace SpaceOdysseyVR.UI
         {
             _menuUI = FindObjectOfType<MenuUI>(true);
             _sceneLoader = FindObjectOfType<SceneLoader>(true);
+
             _player = FindObjectOfType<PlayerController>(true);
+            if (_player != null)
+            {
+                _player.ShowMenu = () => SetMenuState();
+                _player.BackToGame = () => SetGameState();
+            }
 
             _spaceShipHull = FindObjectOfType<SpaceShipHull>(true);
             if (_spaceShipHull != null)
