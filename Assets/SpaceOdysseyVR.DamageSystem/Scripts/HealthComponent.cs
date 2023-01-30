@@ -10,17 +10,17 @@ namespace SpaceOdysseyVR.DamageSystem
     {
         [SerializeField]
         [Range(0, 1000)]
-        private uint _health = 100;
+        private float _health = 100;
 
         [SerializeField]
         [Range(0, 1000)]
-        private uint _maxHealth = 100;
+        private float _maxHealth = 100;
 
         public event Action? OnDeath;
 
-        public event Action<uint>? OnHealthChange;
+        public event Action<float>? OnHealthChange;
 
-        public uint Health
+        public float Health
         {
             get => _health;
             set
@@ -37,13 +37,13 @@ namespace SpaceOdysseyVR.DamageSystem
             }
         }
 
-        public uint MaxHealth { get => _maxHealth; set => _maxHealth = value; }
+        public float MaxHealth { get => _maxHealth; set => _maxHealth = value; }
 
         [ContextMenu(nameof(FullHeal))]
         public void FullHeal () => Health = MaxHealth;
 
-        public void TakeDamage (uint damage) => Health = Math.Max(0, Health - damage);
+        public void TakeDamage (float damage) => Health = Math.Max(0, Health - damage);
 
-        public void TakeHeal (uint heal) => Health = Math.Min(MaxHealth, Health + heal);
+        public void TakeHeal (float heal) => Health = Math.Min(MaxHealth, Health + heal);
     }
 }

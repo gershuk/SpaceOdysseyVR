@@ -47,7 +47,7 @@ namespace SpaceOdysseyVR.ElectroProps
 
         public bool IsAlive => _healthComponent.Health == _healthComponent.MaxHealth;
 
-        private void OnHealthChange (uint health)
+        private void OnHealthChange (float health)
         {
             var maxHealth = _healthComponent.MaxHealth;
             if (health != maxHealth || !IsPowered)
