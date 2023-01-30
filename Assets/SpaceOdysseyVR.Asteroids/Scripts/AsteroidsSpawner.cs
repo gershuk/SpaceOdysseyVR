@@ -58,6 +58,8 @@ namespace SpaceOdysseyVR.Asteroids
 
         public event Action<Asteroid>? OnAsteroidSpawned;
 
+        public event Action? SpawningEndedAndAllDestoried;
+
         public IReadOnlyCollection<Asteroid> SpawnedAsteroids => _spawnedAsteroids;
         #region Spawn support positions
 
@@ -103,6 +105,15 @@ namespace SpaceOdysseyVR.Asteroids
 
         #endregion Spawn support positions
 
+        [ContextMenu(nameof(CheckAndWin))]
+        private void CheckAndWin ()
+        {
+            if (_spawnedAsteroids.Count == 0 && _spawningCoroutine == null)
+            {
+                SpawningEndedAndAllDestoried?.Invoke();
+            }
+        }
+
         private void OnDrawGizmos ()
         {
             Gizmos.color = Color.yellow;
@@ -124,6 +135,9 @@ namespace SpaceOdysseyVR.Asteroids
             _boxCollider.center = new Vector3(0, 0, StartTransform.position.z);
         }
 
+        [ContextMenu(nameof(Win))]
+        private void Win () => SpawningEndedAndAllDestoried?.Invoke();
+
         public IEnumerator SpawningCoroutine (SpawnParameters parameters)
         {
             var time = Time.time;
@@ -140,6 +154,7 @@ namespace SpaceOdysseyVR.Asteroids
                                                                         {
                                                                             _spawnedAsteroids.Remove(asteroid);
                                                                             OnAsteroidDestroyed?.Invoke(asteroid);
+                                                                            CheckAndWin();
                                                                         };
                     asteroid.StartPosition = GetRandomSpawnPoint();
                     asteroid.EndPosition = GetRandomEndPoint();
@@ -152,6 +167,7 @@ namespace SpaceOdysseyVR.Asteroids
                 yield return new WaitForSeconds(parameters.SpawnInterval);
             }
             _spawningCoroutine = null;
+            CheckAndWin();
         }
 
         public void StartSpawning (in SpawnParameters parameters)

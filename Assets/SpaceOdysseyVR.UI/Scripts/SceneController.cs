@@ -1,5 +1,7 @@
 #nullable enable
 
+using SpaceOdysseyVR.Asteroids;
+using SpaceOdysseyVR.ElectroProps;
 using SpaceOdysseyVR.Player;
 
 using UnityEngine;
@@ -8,6 +10,9 @@ namespace SpaceOdysseyVR.UI
 {
     public class SceneController : MonoBehaviour
     {
+        [SerializeField]
+        private AsteroidsSpawner _asteroidsSpawner;
+
         private GameState _gameState;
 
         [SerializeField]
@@ -18,6 +23,9 @@ namespace SpaceOdysseyVR.UI
 
         [SerializeField]
         private SceneLoader? _sceneLoader;
+
+        [SerializeField]
+        private SpaceShipHull _spaceShipHull;
 
         public GameState GameState
         {
@@ -52,6 +60,14 @@ namespace SpaceOdysseyVR.UI
             _menuUI = FindObjectOfType<MenuUI>(true);
             _sceneLoader = FindObjectOfType<SceneLoader>(true);
             _player = FindObjectOfType<PlayerController>(true);
+
+            _spaceShipHull = FindObjectOfType<SpaceShipHull>(true);
+            if (_spaceShipHull != null)
+                _spaceShipHull.OnShipDeath += () => LoadScene("LoseScene");
+
+            _asteroidsSpawner = FindObjectOfType<AsteroidsSpawner>(true);
+            if (_asteroidsSpawner != null)
+                _asteroidsSpawner.SpawningEndedAndAllDestoried += () => LoadScene("WinScene");
         }
 
         private void OnSceneLoadingDone ()
@@ -78,7 +94,7 @@ namespace SpaceOdysseyVR.UI
             if (_menuUI != null)
                 _menuUI.gameObject.SetActive(true);
             if (_player != null)
-                _player.gameObject.SetActive(false);
+                _player.gameObject.SetActive(true);
             if (_sceneLoader != null)
                 _sceneLoader.gameObject.SetActive(false);
             return this;

@@ -11,7 +11,7 @@ namespace SpaceOdysseyVR.UI
         private void Start ()
         {
             _asteroidsSpawner = FindObjectOfType<AsteroidsSpawner>();
-            Invoke(nameof(StartSpawning), 10);
+            Invoke(nameof(StartSpawning), 30);
         }
 
         private void StartSpawning () =>
