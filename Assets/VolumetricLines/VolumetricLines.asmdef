@@ -1,10 +1,7 @@
 {
-    "name": "SpaceOdysseyVR.PlayerTools",
-    "rootNamespace": "SpaceOdysseyVR.PlayerTools",
-    "references": [
-        "GUID:7f65912ca940e154b95141e45c57e937",
-        "GUID:44d590ac7517754459fccc191c11c8e3"
-    ],
+    "name": "VolumetricLines",
+    "rootNamespace": "VolumetricLines",
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
