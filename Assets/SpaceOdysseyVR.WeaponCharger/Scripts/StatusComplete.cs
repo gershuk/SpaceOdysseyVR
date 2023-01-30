@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SpaceOdysseyVR.Charger
+namespace SpaceOdysseyVR.WeaponCharger
 {
     public class StatusComplete : MonoBehaviour
     {

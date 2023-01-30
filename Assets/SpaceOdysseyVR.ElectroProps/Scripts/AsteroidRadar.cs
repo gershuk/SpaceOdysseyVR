@@ -57,15 +57,18 @@ namespace SpaceOdysseyVR.AsteroidRadar
 
         private void OnGUI ()
         {
-            foreach (var pair in _pointsControllers)
+            if (_canvas.enabled)
             {
-                if (pair.Key != null)
+                foreach (var pair in _pointsControllers)
                 {
-                    if (pair.Key.Transform == null)
-                        continue;
-                    var position = (pair.Key.Transform.position - _radarTransform.position) * _zoomScale;
-                    position = Quaternion.Euler(0, _radarTransform.eulerAngles.y, 0) * position;
-                    pair.Value.Position = new(position.x, position.z, 0);
+                    if (pair.Key != null)
+                    {
+                        if (pair.Key.Transform == null)
+                            continue;
+                        var position = (pair.Key.Transform.position - _radarTransform.position) * _zoomScale;
+                        position = Quaternion.Euler(0, _radarTransform.eulerAngles.y, 0) * position;
+                        pair.Value.Position = new(position.x, position.z, 0);
+                    }
                 }
             }
         }

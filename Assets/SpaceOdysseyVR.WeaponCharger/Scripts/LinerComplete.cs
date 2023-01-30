@@ -1,17 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-
 using UnityEngine;
 
-namespace SpaceOdysseyVR.Charger
+namespace SpaceOdysseyVR.WeaponCharger
 {
     public class LinerComplete : MonoBehaviour
     {
-        private SpaceOdysseyVR.StatusLight.Status statusCompleteLight;
         private Valve.VR.InteractionSystem.LinearMapping linearMapping;
         private StatusComplete statusComplete;
+        private SpaceOdysseyVR.StatusLight.Status statusCompleteLight;
+
         // Start is called before the first frame update
-        void Start ()
+        private void Start ()
         {
             statusCompleteLight = GetComponent<SpaceOdysseyVR.StatusLight.Status>();
             linearMapping = GetComponent<Valve.VR.InteractionSystem.LinearMapping>();
@@ -19,10 +17,10 @@ namespace SpaceOdysseyVR.Charger
         }
 
         // Update is called once per frame
-        void Update ()
+        private void Update ()
         {
             var isComplete = linearMapping.value == 1;
-            statusCompleteLight.SetStatusComplete(isComplete);
+            statusCompleteLight.IsComplete = isComplete;
             statusComplete.SetStatusComplete(isComplete);
         }
     }

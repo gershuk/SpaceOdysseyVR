@@ -1,6 +1,7 @@
 #nullable enable
 
 using SpaceOdysseyVR.ElectroProps;
+using SpaceOdysseyVR.WeaponCharger;
 
 using UnityEngine;
 
@@ -9,6 +10,9 @@ namespace SpaceOdysseyVR.WeaponSystem
     public class WeaponSystem : MonoBehaviour
     {
         private bool _active;
+
+        [SerializeField]
+        private Charger _charger;
 
         [SerializeField]
         private float _maxDistance;
@@ -44,6 +48,9 @@ namespace SpaceOdysseyVR.WeaponSystem
 
         private void Start ()
         {
+            if (_charger == null)
+                _charger = FindObjectOfType<Charger>();
+
             _active = true;
             if (_powerCore == null)
                 _powerCore = FindObjectOfType<PowerCore>();
@@ -79,8 +86,9 @@ namespace SpaceOdysseyVR.WeaponSystem
         [ContextMenu(nameof(Shoot))]
         public void Shoot ()
         {
-            if (_active)
+            if (_active && _charger.IsCharged())
             {
+                _charger.DischargePowerUnit();
                 foreach (var turret in _turrets)
                 {
                     _ = turret.Shoot();

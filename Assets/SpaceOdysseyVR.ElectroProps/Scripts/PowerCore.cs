@@ -3,17 +3,18 @@
 using System;
 using System.Collections;
 
+using SpaceOdysseyVR.Reactor;
+
 using UnityEngine;
 
 namespace SpaceOdysseyVR.ElectroProps
 {
+    [RequireComponent(typeof(StatusReactor))]
     [RequireComponent(typeof(AudioSource))]
     public sealed class PowerCore : MonoBehaviour
     {
         private bool _allCellsSetted;
-
         private AudioSource _audioSource;
-
         private CoreState _coreState = CoreState.None;
 
         [SerializeField]
@@ -21,12 +22,13 @@ namespace SpaceOdysseyVR.ElectroProps
         private float _flickerTime = 0.237f;
 
         private SpaceShipHull _spaceShipHull;
-
         private Coroutine? _startingCorutine;
 
         [SerializeField]
         [Range(1f, 10f)]
         private float _startingTime = 1f;
+
+        private StatusReactor _statusReactor;
 
         public event Action? OnCorePowerOff;
 
@@ -91,6 +93,14 @@ namespace SpaceOdysseyVR.ElectroProps
             }
         }
 
+        private void CellsStatusChanged (bool isAll)
+        {
+            Debug.Log($"First:{CoreState}");
+            AllCellsSetted = isAll;
+            CoreState = isAll ? CoreState.Starting : CoreState.Stopped;
+            Debug.Log($"Second:{CoreState}");
+        }
+
         private PowerCore OnNoneState () => throw new NotImplementedException();
 
         private PowerCore OnStartingState ()
@@ -108,6 +118,11 @@ namespace SpaceOdysseyVR.ElectroProps
         {
             OnCorePowerOff?.Invoke();
             _audioSource.Stop();
+            if (_startingCorutine != null)
+            {
+                StopCoroutine(_startingCorutine);
+                _startingCorutine = null;
+            }
             return this;
         }
 
@@ -123,10 +138,13 @@ namespace SpaceOdysseyVR.ElectroProps
             _spaceShipHull.OnTakingDamage += () =>
                                              {
                                                  if (UnityEngine.Random.Range(0, 100) > 50)
-                                                     CoreState = CoreState.Stopped;
+                                                     _statusReactor.MakeCrash();
                                              };
             _audioSource = GetComponent<AudioSource>();
             _audioSource.loop = true;
+
+            _statusReactor = GetComponent<StatusReactor>();
+            _statusReactor.OnStatusChanged += CellsStatusChanged;
         }
 
         private IEnumerator StartingCorutine ()

@@ -121,7 +121,7 @@ namespace SpaceOdysseyVR.Asteroids
             _boxCollider = GetComponent<BoxCollider>();
             _boxCollider.isTrigger = true;
             _boxCollider.size = _boxSize * 1.5f;
-            _boxCollider.center = new Vector3(0, 0, SpawnStartCenter.z);
+            _boxCollider.center = new Vector3(0, 0, StartTransform.position.z);
         }
 
         public IEnumerator SpawningCoroutine (SpawnParameters parameters)
@@ -154,8 +154,19 @@ namespace SpaceOdysseyVR.Asteroids
             _spawningCoroutine = null;
         }
 
+        public void StartSpawning (in SpawnParameters parameters)
+        {
+            if (_spawningCoroutine != null)
+            {
+                Debug.LogError("Spawning already started");
+                return;
+            }
+
+            _spawningCoroutine = StartCoroutine(SpawningCoroutine(parameters));
+        }
+
         [ContextMenu("Start spawning many")]
-        public void StartSpawning ()
+        public void StartSpawningMany ()
         {
             if (_spawningCoroutine != null)
             {

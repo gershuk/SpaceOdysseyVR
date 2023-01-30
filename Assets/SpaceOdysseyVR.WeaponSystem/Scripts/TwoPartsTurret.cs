@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace SpaceOdysseyVR.WeaponSystem
 {
+    [RequireComponent(typeof(AudioSource))]
     public sealed class TwoPartsTurret : MonoBehaviour
     {
         [SerializeField]
@@ -15,6 +16,7 @@ namespace SpaceOdysseyVR.WeaponSystem
         private static GameObject? _ammorPrefab;
 
         private GameObject _aimPointMarker;
+        [SerializeField] private AudioSource _audioSource;
 
         [SerializeField]
         [Range(0.01f, 10f)]
@@ -107,6 +109,8 @@ namespace SpaceOdysseyVR.WeaponSystem
                 _aimPointMarkerPrefab = Resources.Load<GameObject>(@"Prefabs/Aim");
 
             _aimPointMarker = Instantiate(_aimPointMarkerPrefab, transform);
+
+            _audioSource = GetComponent<AudioSource>();
         }
 
         private void Update ()
@@ -136,6 +140,7 @@ namespace SpaceOdysseyVR.WeaponSystem
             {
                 _ = Instantiate(_ammorPrefab, _shootPoint.position, _shootPoint.rotation);
                 _lastShootTime = Time.time;
+                _audioSource.Play();
             }
             return cond;
         }

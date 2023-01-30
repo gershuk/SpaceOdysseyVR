@@ -3,7 +3,8 @@
     "rootNamespace": "SpaceOdysseyVR.WeaponSystem",
     "references": [
         "GUID:44d590ac7517754459fccc191c11c8e3",
-        "GUID:1a2a8285ddbd660448377d77bce303ac"
+        "GUID:1a2a8285ddbd660448377d77bce303ac",
+        "GUID:3ef3b9ed838d52e44b30e7c54a55e92b"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

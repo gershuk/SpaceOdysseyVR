@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ad7efb48bac6a74f8a8b7cfa5f0cd12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charged: 0
+  _charged: 1
   EmptyIndicator: {fileID: 8562082930993134379}
   FullIndicator: {fileID: 5642139276676520332}
 --- !u!54 &8755477955256194446

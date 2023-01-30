@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 
 using UnityEngine;
 
@@ -7,27 +6,19 @@ namespace SpaceOdysseyVR.StatusLight
 {
     public class Status : MonoBehaviour
     {
-        private bool isComplete = false;
-        // Start is called before the first frame update
-        void Start ()
+        [SerializeField]
+        private bool _isComplete = false;
+
+        public event Action<bool>? OnStatusChanged;
+
+        public bool IsComplete
         {
-
-        }
-
-        // Update is called once per frame
-        void Update ()
-        {
-
-        }
-
-        public bool GetStatusComplete ()
-        {
-            return isComplete;
-        }
-
-        public void SetStatusComplete (bool newStatus)
-        {
-            isComplete = newStatus;
+            get => _isComplete;
+            set
+            {
+                _isComplete = value;
+                OnStatusChanged?.Invoke(value);
+            }
         }
     }
 }

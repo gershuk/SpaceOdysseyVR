@@ -1,17 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
-
 using UnityEngine;
 
 namespace SpaceOdysseyVR.StatusLight
 {
     public class SetLight : MonoBehaviour
     {
-        public Status statusComplete;
         private Light lightComponent;
+        public Status statusComplete;
 
         //-------------------------------------------------
-        void Start ()
+        private void Start ()
         {
             if (lightComponent == null)
             {
@@ -25,11 +22,10 @@ namespace SpaceOdysseyVR.StatusLight
             }
         }
 
-
         //-------------------------------------------------
-        void Update ()
+        private void Update ()
         {
-            lightComponent.color = statusComplete.GetStatusComplete() ? Color.green : Color.red;
+            lightComponent.color = statusComplete.IsComplete ? Color.green : Color.red;
         }
     }
 }

@@ -1,29 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-
-using UnityEditor;
-
 using UnityEngine;
 
-namespace SpaceOdysseyVR.Charger
+namespace SpaceOdysseyVR.WeaponCharger
 {
     public class PowerZoneDrag : MonoBehaviour
     {
-        private bool busy = false;
         private PowerUnit.InteractionPowerUnit activePowerUnit;
-        // Start is called before the first frame update
-        void Start ()
-        {
+        private bool busy = false;
 
-        }
-
-        // Update is called once per frame
-        void Update ()
-        {
-
-        }
-
-        void OnTriggerEnter (Collider other)
+        private void OnTriggerEnter (Collider other)
         {
             var powerUnit = other.GetComponent<PowerUnit.InteractionPowerUnit>();
             if (!busy && powerUnit != null)
@@ -34,7 +18,7 @@ namespace SpaceOdysseyVR.Charger
             }
         }
 
-        void OnTriggerExit (Collider other)
+        private void OnTriggerExit (Collider other)
         {
             var powerUnit = other.GetComponent<PowerUnit.InteractionPowerUnit>();
             if (powerUnit != null && activePowerUnit == powerUnit)
@@ -45,14 +29,24 @@ namespace SpaceOdysseyVR.Charger
             }
         }
 
-        public PowerUnit.InteractionPowerUnit GetPowerUnit ()
+        // Start is called before the first frame update
+        private void Start ()
         {
-            return activePowerUnit;
+        }
+
+        // Update is called once per frame
+        private void Update ()
+        {
         }
 
         public bool GetBusy ()
         {
             return busy;
+        }
+
+        public PowerUnit.InteractionPowerUnit GetPowerUnit ()
+        {
+            return activePowerUnit;
         }
     }
 }
