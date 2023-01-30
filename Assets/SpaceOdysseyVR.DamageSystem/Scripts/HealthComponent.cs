@@ -18,7 +18,7 @@ namespace SpaceOdysseyVR.DamageSystem
 
         public event Action? OnDeath;
 
-        public event Action<float>? OnHealthChange;
+        public event Action<float, float>? OnHealthChange;
 
         public float Health
         {
@@ -28,7 +28,7 @@ namespace SpaceOdysseyVR.DamageSystem
                 if (_health == value)
                     return;
                 _health = value;
-                OnHealthChange?.Invoke(value);
+                OnHealthChange?.Invoke(Health, MaxHealth);
 
                 if (_health == 0)
                 {
