@@ -8,6 +8,18 @@ namespace SpaceOdysseyVR.UI
     {
         private AsteroidsSpawner _asteroidsSpawner;
 
+        [SerializeField]
+        [Range(0f, 100f)]
+        private float spawnInterval = 10;
+
+        [SerializeField]
+        [Range(0, 100)]
+        private uint allDirectAsteroidsCount = 50;
+
+        [SerializeField]
+        [Range(0, 100)]
+        private uint partitionDirectAsteroidsCount = 5;
+
         private void Start ()
         {
             _asteroidsSpawner = FindObjectOfType<AsteroidsSpawner>();
@@ -15,6 +27,6 @@ namespace SpaceOdysseyVR.UI
         }
 
         private void StartSpawning () =>
-            _asteroidsSpawner.StartSpawning(new(8, 50, 5));
+            _asteroidsSpawner.StartSpawning(new(spawnInterval, allDirectAsteroidsCount, partitionDirectAsteroidsCount));
     }
 }

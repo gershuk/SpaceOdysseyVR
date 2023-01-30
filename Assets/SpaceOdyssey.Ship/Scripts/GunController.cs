@@ -17,6 +17,7 @@ namespace SpaceOdysseyVR.Ship
         public SteamVR_Action_Boolean actinExit;
         public SteamVR_Input_Sources handTypeExit;
         // a reference to the hand
+        public WeaponSystem.WeaponSystem weaponSystem;
 
         // Start is called before the first frame update
         void Start ()
@@ -49,7 +50,7 @@ namespace SpaceOdysseyVR.Ship
 
         private void Fire (SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
         {
-            Debug.Log("Fire");
+            weaponSystem.Shoot();
         }
 
         private void Exit (SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
