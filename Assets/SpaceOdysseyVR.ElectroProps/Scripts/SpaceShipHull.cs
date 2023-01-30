@@ -37,7 +37,7 @@ namespace SpaceOdysseyVR.ElectroProps
             Destroy(gameObject);
         }
 
-        private void OnHealthChange (uint obj) => OnTakingDamage?.Invoke();
+        private void OnHealthChange (float obj) => OnTakingDamage?.Invoke();
 
         private void Start ()
         {

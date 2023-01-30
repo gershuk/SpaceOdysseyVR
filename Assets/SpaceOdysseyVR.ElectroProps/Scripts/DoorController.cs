@@ -41,15 +41,15 @@ namespace SpaceOdysseyVR.ElectroProps
         private IEnumerator Move ()
         {
             const float eps = 1e-5f;
-            var startPosition = _door.position;
+            var startPosition = _door.localPosition;
             var procesTime = Vector3.Distance(startPosition, Destination)
                             / Vector3.Distance(_lockPosition, _openPosition) * _openTime;
             var startTime = Time.time;
             if (Vector3.Distance(startPosition, Destination) > eps)
                 _audioSource.Play();
-            while (Vector3.Distance(_door.position, Destination) > eps)
+            while (Vector3.Distance(_door.localPosition, Destination) > eps)
             {
-                _door.position = Vector3.Lerp(startPosition, Destination, (Time.time - startTime) / procesTime);
+                _door.localPosition = Vector3.Lerp(startPosition, Destination, (Time.time - startTime) / procesTime);
                 yield return null;
             }
         }
@@ -102,7 +102,8 @@ namespace SpaceOdysseyVR.ElectroProps
         protected override void PowerOff ()
         {
             _hasPower = false;
-            StopCoroutine();
+            _isOpen = !IsPowered;
+            RestartCoroutine();
         }
 
         protected override void PowerOn ()
@@ -129,7 +130,7 @@ namespace SpaceOdysseyVR.ElectroProps
             _powerCore.OnCorePowerOn += OnPowerOn;
 
             if (_powerCore.CoreState is not CoreState.Working)
-                OnPowerOff();
+                Invoke(nameof(OnPowerOff), 0.01f);
         }
     }
 }
