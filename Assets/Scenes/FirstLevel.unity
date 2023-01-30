@@ -1561,6 +1561,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1099901692970785116, guid: c792c85cf79ac9944bbe9813f9586152, type: 3}
+      propertyPath: m_Volume
+      value: 0.743
+      objectReference: {fileID: 0}
     - target: {fileID: 3199997616752318759, guid: c792c85cf79ac9944bbe9813f9586152, type: 3}
       propertyPath: m_Camera
       value: 
@@ -1624,6 +1628,10 @@ PrefabInstance:
     - target: {fileID: 3774416247224294621, guid: c792c85cf79ac9944bbe9813f9586152, type: 3}
       propertyPath: m_Name
       value: RadarBase
+      objectReference: {fileID: 0}
+    - target: {fileID: 3774416247224294622, guid: c792c85cf79ac9944bbe9813f9586152, type: 3}
+      propertyPath: _pointSize
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 3774416247224294622, guid: c792c85cf79ac9944bbe9813f9586152, type: 3}
       propertyPath: _radarTransform
@@ -16521,24 +16529,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1280544036550337281, guid: f663e8cd40fa53a41ba3cfb458665b09, type: 3}
   m_PrefabInstance: {fileID: 1719440596}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1722431138 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3774416247224294621, guid: c792c85cf79ac9944bbe9813f9586152, type: 3}
-  m_PrefabInstance: {fileID: 130278020}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &1722431142
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1722431138}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.9687812, y: 2.4547591, z: 1.6154}
-  m_Center: {x: 0.0156086655, y: 1.1828701, z: 0.03707784}
 --- !u!1001 &1752022456
 PrefabInstance:
   m_ObjectHideFlags: 0
