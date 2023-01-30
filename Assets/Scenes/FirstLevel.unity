@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0031563276, g: 0.0027327389, b: 0.0033656592, a: 1}
+  m_IndirectSpecularColor: {r: 0.0031037796, g: 0.0027302653, b: 0.0033076513, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2312,6 +2312,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d047431f05bbf6446b2309176cb79fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnInterval: 25
+  allDirectAsteroidsCount: 25
+  partitionDirectAsteroidsCount: 5
 --- !u!4 &195343076
 Transform:
   m_ObjectHideFlags: 0
@@ -5985,6 +5988,7 @@ MonoBehaviour:
     actionPath: /actions/default/in/GrabGrip
     needsReinit: 0
   handTypeExit: 1
+  weaponSystem: {fileID: 2077203144}
 --- !u!1001 &630766624
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16734,11 +16738,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f663e8cd40fa53a41ba3cfb458665b09, type: 3}
---- !u!4 &1798168490 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5534829527821867346, guid: cab44a19b860e0f42a7fcf66be884b31, type: 3}
-  m_PrefabInstance: {fileID: 9091921825429616111}
-  m_PrefabAsset: {fileID: 0}
 --- !u!20 &1798681776 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 5534829527822381640, guid: cab44a19b860e0f42a7fcf66be884b31, type: 3}
@@ -16987,6 +16986,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f663e8cd40fa53a41ba3cfb458665b09, type: 3}
+--- !u!4 &1840497847 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5534829527821844802, guid: cab44a19b860e0f42a7fcf66be884b31, type: 3}
+  m_PrefabInstance: {fileID: 9091921825429616111}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1845655571
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18806,7 +18810,7 @@ PrefabInstance:
     - target: {fileID: 2481564224463857935, guid: 58043574a6377fb4aae14f52e1d80848, type: 3}
       propertyPath: _pointer
       value: 
-      objectReference: {fileID: 1798168490}
+      objectReference: {fileID: 1840497847}
     - target: {fileID: 2481564224463857935, guid: 58043574a6377fb4aae14f52e1d80848, type: 3}
       propertyPath: _maxDistance
       value: 1000
@@ -18825,6 +18829,17 @@ PrefabInstance:
       objectReference: {fileID: 700146640}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58043574a6377fb4aae14f52e1d80848, type: 3}
+--- !u!114 &2077203144 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2481564224463857935, guid: 58043574a6377fb4aae14f52e1d80848, type: 3}
+  m_PrefabInstance: {fileID: 2077203143}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06753e21477df044db958fc8ff37279b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2082123308
 GameObject:
   m_ObjectHideFlags: 0
