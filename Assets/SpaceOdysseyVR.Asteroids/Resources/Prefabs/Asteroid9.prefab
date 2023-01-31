@@ -143,6 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _strength: 1
+  _timeout: 120
   _forceModule: 3
   _maxTorque: 10
   _minTorque: -10

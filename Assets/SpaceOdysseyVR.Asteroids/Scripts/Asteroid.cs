@@ -19,6 +19,10 @@ namespace SpaceOdysseyVR.Asteroids
         [Range(ExplosionController.MinStrenght, ExplosionController.MinStrenght)]
         private float _strength = 1;
 
+        [SerializeField]
+        [Range(0, 200f)]
+        private float _timeout = 120;
+
         private Transform _transform;
         #region Trajectory parameters
 
@@ -113,6 +117,8 @@ namespace SpaceOdysseyVR.Asteroids
 
             _healthComponent = GetComponent<HealthComponent>();
             _healthComponent.OnDeath += OnDeath;
+
+            Destroy(gameObject, _timeout);
         }
     }
 }
