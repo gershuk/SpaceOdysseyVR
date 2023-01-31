@@ -149,7 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bad: {fileID: 2969430873548007973}
   _good: {fileID: 28878635441374218}
-  _chanceToBrokedown: 0
+  _chanceToBrokedown: 31
   _powerCore: {fileID: 0}
   _delta: 2.5
   _door: {fileID: 2091867965061980344}
