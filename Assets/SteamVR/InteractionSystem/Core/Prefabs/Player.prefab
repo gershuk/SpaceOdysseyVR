@@ -1440,6 +1440,8 @@ GameObject:
   - component: {fileID: 11455280}
   - component: {fileID: 5475726}
   - component: {fileID: 8834632956170416887}
+  - component: {fileID: 4325085921848775082}
+  - component: {fileID: 1899791672974298240}
   m_Layer: 27
   m_Name: BodyCollider
   m_TagString: Untagged
@@ -1483,7 +1485,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 191996}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1731d642c0b250b48bb8cdfb153d9792, type: 3}
   m_Name: 
@@ -1515,6 +1517,35 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 992a667f37bcaa2439fdf17254d27287, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  action:
+    actionPath: 
+    needsReinit: 0
+  handType: 0
+--- !u!114 &4325085921848775082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5a1be5da1c87864582d778e52de4e9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onlyIgnoreHand: {fileID: 0}
+--- !u!114 &1899791672974298240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc3be917a80086a48b97933694257f09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1000010010492814

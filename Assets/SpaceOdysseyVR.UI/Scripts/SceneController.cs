@@ -63,8 +63,8 @@ namespace SpaceOdysseyVR.UI
             _player = FindObjectOfType<PlayerController>(true);
             if (_player != null)
             {
-                _player.ShowMenu = () => SetMenuState();
-                _player.BackToGame = () => SetGameState();
+                _player.ShowMenu = () => GameState = GameState.Menu;
+                _player.BackToGame = () => GameState = GameState.Game;
             }
 
             _spaceShipHull = FindObjectOfType<SpaceShipHull>(true);
