@@ -30,6 +30,12 @@ namespace SpaceOdysseyVR.Player
             gameObject.SetActive(false);
         }
 
+        void OnDestroy ()
+        {
+            action.RemoveOnStateDownListener(TriggerDown, handType);
+            action.RemoveOnStateUpListener(TriggerUp, handType);
+        }
+
         public void TriggerUp (SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
         {
             BackToGameSupport();
