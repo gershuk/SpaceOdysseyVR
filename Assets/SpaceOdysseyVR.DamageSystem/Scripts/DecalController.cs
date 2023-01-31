@@ -21,7 +21,7 @@ namespace SpaceOdysseyVR.DamageSystem
             if (_lastNotActiveIndex >= _decals.Length)
                 return;
 
-            var end = Math.Max((int) Math.Ceiling((maxHealth - health) / maxHealth * _decals.Length), _decals.Length-1);
+            var end = Math.Min((int) Math.Ceiling((maxHealth - health) / maxHealth * _decals.Length), _decals.Length - 1);
             for (var i = _lastNotActiveIndex; i <= end; i++)
             {
                 _decals[i].enabled = true;
