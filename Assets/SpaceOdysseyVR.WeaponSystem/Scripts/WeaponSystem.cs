@@ -23,6 +23,10 @@ namespace SpaceOdysseyVR.WeaponSystem
         private PowerCore _powerCore;
 
         [SerializeField]
+        [Range(0.01f, 10f)]
+        private float _sphereCastRad = 2;
+
+        [SerializeField]
         private TwoPartsTurret[] _turrets;
 
         private void OnDisable ()
@@ -73,8 +77,13 @@ namespace SpaceOdysseyVR.WeaponSystem
         {
             if (_active)
             {
-                var point = Physics.Raycast(_pointer!.position, _pointer.forward, out var raycastHit, _maxDistance, ~(1 << 2))
-                    ? raycastHit.point
+                var point = Physics.SphereCast(_pointer!.position,
+                                               _sphereCastRad,
+                                               _pointer.forward,
+                                               out var raycastHit,
+                                               _maxDistance,
+                                               ~(1 << 2))
+                    ? raycastHit.transform.position
                     : _pointer.position + _pointer.forward * _maxDistance;
                 foreach (var turret in _turrets)
                 {
