@@ -145,6 +145,8 @@ namespace SpaceOdysseyVR.ElectroProps
 
             _statusReactor = GetComponent<StatusReactor>();
             _statusReactor.OnStatusChanged += CellsStatusChanged;
+
+            CoreState = _statusReactor.IsComplete ? CoreState.Starting : CoreState.Stopped;
         }
 
         private IEnumerator StartingCorutine ()

@@ -1,5 +1,7 @@
 #nullable enable
 
+using System;
+
 using SpaceOdysseyVR.DamageSystem;
 
 using UnityEngine;
@@ -27,36 +29,42 @@ namespace SpaceOdysseyVR.ElectroProps
 
         protected SpaceShipHull _spaceShipHull;
 
-        protected virtual bool IsPowered
+        public event Action<bool>? PowerStatusChanged;
+
+        public bool IsAlive => _healthComponent.Health == _healthComponent.MaxHealth;
+
+        public virtual bool IsPowered
         {
             get => _isPowered;
-            set
+            protected set
             {
                 _isPowered = value;
                 if (_healthComponent.Health != _healthComponent.MaxHealth || !IsPowered)
                 {
                     PowerOff();
+                    PowerStatusChanged?.Invoke(false);
                 }
 
                 if (_healthComponent.Health == _healthComponent.MaxHealth && IsPowered)
                 {
                     PowerOn();
+                    PowerStatusChanged?.Invoke(true);
                 }
             }
         }
-
-        public bool IsAlive => _healthComponent.Health == _healthComponent.MaxHealth;
 
         private void OnHealthChange (float health, float maxHealth)
         {
             if (health != maxHealth || !IsPowered)
             {
                 PowerOff();
+                PowerStatusChanged?.Invoke(false);
             }
 
             if (health == maxHealth && IsPowered)
             {
                 PowerOn();
+                PowerStatusChanged?.Invoke(true);
             }
 
             UpdateForm();
@@ -89,7 +97,7 @@ namespace SpaceOdysseyVR.ElectroProps
 
         protected void OnTakingDamage ()
         {
-            if ((100 - _chanceToBrokedown) < Random.Range(0, 100))
+            if ((100 - _chanceToBrokedown) < UnityEngine.Random.Range(0, 100))
                 _healthComponent.Health = 0;
         }
 
@@ -114,10 +122,12 @@ namespace SpaceOdysseyVR.ElectroProps
 
             if (_powerCore.CoreState is not CoreState.Working)
             {
+                PowerStatusChanged?.Invoke(false);
                 OnPowerOff();
             }
             else
             {
+                PowerStatusChanged?.Invoke(true);
                 OnPowerOn();
             }
 

@@ -7,7 +7,7 @@ using SpaceOdysseyVR.ElectroProps;
 
 using UnityEngine;
 
-namespace SpaceOdysseyVR.AsteroidRadar
+namespace SpaceOdysseyVR.AsteroidRadarSystem
 {
     [RequireComponent(typeof(AudioSource))]
     public sealed class AsteroidRadar : AbstractProp

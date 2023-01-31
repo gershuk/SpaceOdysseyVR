@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace SpaceOdysseyVR.AsteroidRadar
+namespace SpaceOdysseyVR.AsteroidRadarSystem
 {
     [RequireComponent(typeof(RectTransform))]
     public sealed class RadarPointController : MonoBehaviour
