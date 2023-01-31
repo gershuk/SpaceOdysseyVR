@@ -18,12 +18,15 @@ namespace SpaceOdysseyVR.DamageSystem
 
         private void OnHealthChange (float health, float maxHealth)
         {
-            var end = (int) Math.Ceiling(health / maxHealth * _decals.Length);
+            if (_lastNotActiveIndex >= _decals.Length)
+                return;
+
+            var end = Math.Max((int) Math.Ceiling((maxHealth - health) / maxHealth * _decals.Length), _decals.Length-1);
             for (var i = _lastNotActiveIndex; i <= end; i++)
             {
                 _decals[i].enabled = true;
             }
-            _lastNotActiveIndex = end;
+            _lastNotActiveIndex = end + 1;
         }
 
         private void Start ()
