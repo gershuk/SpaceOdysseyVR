@@ -143,8 +143,8 @@ namespace SpaceOdysseyVR.Asteroids
         public IEnumerator SpawningCoroutine (SpawnParameters parameters)
         {
             var time = Time.time;
-            var remainsDirectAsteroidsCount = parameters.AllDirectAsteroidsCount;
-
+            var remainsDirectAsteroidsCount = (int)parameters.AllDirectAsteroidsCount;
+            
             while (!(parameters.Timeout.HasValue && Time.time - time < parameters.Timeout)
                     && remainsDirectAsteroidsCount > 0)
             {
@@ -165,7 +165,7 @@ namespace SpaceOdysseyVR.Asteroids
                     OnAsteroidSpawned?.Invoke(asteroid);
                 }
 
-                remainsDirectAsteroidsCount -= parameters.PartitionDirectAsteroidsCount;
+                remainsDirectAsteroidsCount -= (int)parameters.PartitionDirectAsteroidsCount;
 
                 yield return new WaitForSeconds(parameters.SpawnInterval);
             }

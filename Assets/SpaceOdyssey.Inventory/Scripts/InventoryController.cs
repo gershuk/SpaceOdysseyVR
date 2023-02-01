@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 using UnityEngine;
+
 using Valve.VR;
 
 namespace SpaceOdysseyVR.Inventory
@@ -17,6 +18,11 @@ namespace SpaceOdysseyVR.Inventory
             action.AddOnStateDownListener(TriggerDown, handType);
             action.AddOnStateUpListener(TriggerUp, handType);
             gameObject.SetActive(false);
+        }
+        void OnDestroy ()
+        {
+            action.RemoveOnStateDownListener(TriggerDown, handType);
+            action.RemoveOnStateUpListener(TriggerUp, handType);
         }
         public void TriggerUp (SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
         {
