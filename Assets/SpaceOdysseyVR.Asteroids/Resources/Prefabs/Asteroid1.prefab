@@ -131,7 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _strength: 1
   _timeout: 120
-  _forceModule: 3
+  _forceModule: 2
   _maxTorque: 10
   _minTorque: -10
   _damge: 100

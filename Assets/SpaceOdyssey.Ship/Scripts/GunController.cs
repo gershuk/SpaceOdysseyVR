@@ -48,6 +48,12 @@ namespace SpaceOdysseyVR.Ship
             actionFire.RemoveOnStateUpListener(Exit, handTypeExit);
         }
 
+         void OnDestroy ()
+        {
+            actionFire.RemoveOnStateUpListener(Fire, handTypeFire);
+            actionFire.RemoveOnStateUpListener(Exit, handTypeExit);
+        }
+
         private void Fire (SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
         {
             weaponSystem.Shoot();
